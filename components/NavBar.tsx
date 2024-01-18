@@ -32,13 +32,14 @@ const NavBar = () => {
   return (
     <nav className="flex gap-4 text-textPrimary">
       <div id="logo">
-        <Link href="/">
+        <Link href="/" className="flex">
           <Image
             width={40}
             height={32}
             src={CarLogo}
             alt="Rent Ryde Car Logo"
           />
+          <h2>RENT RYDE</h2>
         </Link>
       </div>
       <div id="navBarOptions" className="flex gap-4">

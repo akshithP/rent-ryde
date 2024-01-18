@@ -15,6 +15,9 @@ const config: Config = {
         textPrimary: "white" /* WHITE */,
         textSecondary: "#8D8D8D" /* Grey */,
       },
+      fontFamily: {
+        plusJakartaSans: ["var(--font-plusJakartaSans)"],
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
