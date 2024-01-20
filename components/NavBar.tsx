@@ -63,7 +63,7 @@ const NavBar = () => {
         <nav
           className={` ${
             menuOpen ? "block" : "hidden"
-          } w-full md:flex md:items-center md:w-auto`}
+          } w-full md:flex md:items-center md:w-auto duration-500`}
         >
           <ul className="md:flex md:justify-between text-base font-semibold text-textPrimary">
             {linksList.map((link) => (
