@@ -1,8 +1,10 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import CarLogo from "../public/icons/car-logo.svg";
 import { Links } from "@/types";
+import { IoMenu } from "react-icons/io5";
 
 // List containing all the link objects
 const linksList: Links[] = [
@@ -29,26 +31,52 @@ const linksList: Links[] = [
 ];
 
 const NavBar = () => {
+  // Use state hook for the hamburger menu, whether its open or closed
+  const [menuOpen, setMenuClose] = useState(false);
+
   return (
-    <nav className="flex gap-4 text-textPrimary">
-      <div id="logo">
-        <Link href="/" className="flex">
+    <nav className="flex justify-between items-center max-w-7xl mx-auto px-4 py-2 nav border-b border-primary text-textPrimary">
+      {/* Section for the logo icon and text */}
+      <div id="logo" className=" ">
+        <Link href="/" className="flex gap-2 mt-2 ">
           <Image
-            width={40}
-            height={32}
+            width={38}
+            height={30}
             src={CarLogo}
             alt="Rent Ryde Car Logo"
           />
-          <h2>RENT RYDE</h2>
+          <h1 className="text-primary font-extrabold text-2xl">RENT RYDE</h1>
         </Link>
       </div>
-      <div id="navBarOptions" className="flex gap-4">
-        {linksList.map((link) => (
-          <Link key={link.id} href={link.url} className="hover:bg-primary">
-            {link.title}
-          </Link>
-        ))}
-      </div>
+
+      {/* Hamburger menu button, appears if the screen width less than md*/}
+      <button
+        className="md:hidden block"
+        onClick={() => setMenuClose(!menuOpen)}
+      >
+        <IoMenu className="text-4xl hover:text-primary"></IoMenu>
+      </button>
+
+      {/* Navbar menu links, displayed if screen size greater than md other hidden under hamburger less than md*/}
+      <nav
+        className={`${
+          menuOpen ? "block" : "hidden"
+        } md:flex md:items-center font-semibold`}
+      >
+        <ul className="md:flex md:justify-between gap-7">
+          {linksList.map((link) => (
+            <li key={link.id}>
+              <Link
+                key={link.id}
+                href={link.url}
+                className={`hover:bg-primary p-2 rounded transition-colors text-xl`}
+              >
+                {link.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </nav>
   );
 };
