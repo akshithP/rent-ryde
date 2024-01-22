@@ -35,7 +35,7 @@ const NavBar = () => {
   const [menuOpen, setMenuClose] = useState(false);
 
   return (
-    <header className="border-b border-primary py-2">
+    <header className="border-b border-primary py-2 font-plusJakartaSans">
       <div
         id="logo"
         className="flex items-center justify-between  lg:max-w-7xl lg:mx-auto max-w-full px-8 flex-wrap w-full"
@@ -48,7 +48,9 @@ const NavBar = () => {
             src={CarLogo}
             alt="Rent Ryde Car Logo"
           />
-          <h1 className="text-primary font-extrabold text-2xl">RENT RYDE</h1>
+          <h1 className="text-primary font-extrabold text-2xl font-plusJakartaSans">
+            RENT RYDE
+          </h1>
         </Link>
 
         {/* Hamburger menu button, appears if the screen width less than md*/}

@@ -1,15 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { plusJakartaSans } from "@/fonts";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
-
-const inter = Inter({ subsets: ["latin"] });
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-plusJakartaSans",
-});
 
 export const metadata: Metadata = {
   title: "Rent Ryde",
