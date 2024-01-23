@@ -10,13 +10,11 @@ const config: Config = {
     extend: {
       colors: {
         primary: "#E35973" /* RED */,
+        primary2: "#C10000" /* DArk RED */,
         secondary: "#2F2F9B" /* Light PURPLE */,
         secondary2: "#24257D" /* Dark PURPLE */,
         textPrimary: "white" /* WHITE */,
         textSecondary: "#8D8D8D" /* Grey */,
-      },
-      fontFamily: {
-        plusJakartaSans: ["var(--font-plusJakartaSans)"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
