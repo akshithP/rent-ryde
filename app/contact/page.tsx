@@ -42,45 +42,37 @@ const Contact = () => {
           {/*---------PHONE----------*/}
           <a
             href={`tel:+61-0234-5678`}
-            className="flex gap-5 justify-start items-center text-secondary2"
+            className="flex gap-5 justify-start items-center text-secondary2 hover:text-textPrimary transition-colors"
           >
             <Phone size={34} />
-            <p className="text-lg font-medium hover:underline">+61-0234-5678</p>
+            <p className="text-lg font-medium hover:underline ">
+              +61-0234-5678
+            </p>
           </a>
 
-          {/* <section className="flex gap-5 justify-start items-center text-secondary2">
-            <Phone size={34} />
-            <a
-              href={`tel:+61-0234-5678`}
-              className="text-lg font-medium hover:underline"
-            >
-              +61-0234-5678
-            </a>
-          </section> */}
-
           {/*---------MAIL----------*/}
-          <section className="flex gap-5 justify-start items-center text-secondary2">
+          <a
+            href={`mailto:rentryde@help.com.au`}
+            className="flex gap-5 justify-start items-center text-secondary2 hover:text-textPrimary transition-colors"
+          >
             <Mail size={34} />
-            <a
-              href={`mailto:rentryde@help.com.au`}
-              className="text-lg font-medium hover:underline"
-            >
+            <p className="text-lg font-medium hover:underline">
               rentryde@help.com.au
-            </a>
-          </section>
+            </p>
+          </a>
 
           {/*---------ADDRESS----------*/}
-          <section className="flex gap-5 justify-start items-center text-secondary2 z-10">
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=132+Kaer+Morhen+Street,+Melbourne,+3000+Australia`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex gap-5 justify-start items-center text-secondary2 z-10 hover:text-textPrimary transition-colors"
+          >
             <Pin size={34} />
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=132+Kaer+Morhen+Street,+Melbourne,+3000+Australia`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-lg font-medium underline hover:text-textPrimary transition-colors"
-            >
+            <p className="text-lg font-medium underline">
               132 Kaer Morhen Street, Melbourne, 3000 Australia
-            </a>
-          </section>
+            </p>
+          </a>
 
           {/*---------ICONS----------*/}
           <section className="flex gap-5 z-10">
