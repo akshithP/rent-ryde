@@ -55,6 +55,8 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+
+      {/*-----------------BOTTOM ELLIPSE CONTAINER--------------*/}
       <div className="flex justify-center">
         <div
           id="bottomCurve"

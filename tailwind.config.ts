@@ -14,7 +14,7 @@ const config: Config = {
         secondary: "#2F2F9B" /* Light PURPLE */,
         secondary2: "#24257D" /* Dark PURPLE */,
         textPrimary: "white" /* WHITE */,
-        textSecondary: "#8D8D8D" /* Grey */,
+        textSecondary: "#FFD1F5" /* Grey */,
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
