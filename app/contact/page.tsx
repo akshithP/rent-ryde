@@ -4,10 +4,11 @@ import Image from "next/image";
 import { BiSolidPhoneCall as Phone } from "react-icons/bi";
 import { IoMail as Mail } from "react-icons/io5";
 import { FaLocationDot as Pin } from "react-icons/fa6";
-import { FaInstagram as Instagram } from "react-icons/fa";
-import { FaFacebookSquare as Facebook } from "react-icons/fa";
-import { FaXTwitter as X } from "react-icons/fa6";
+import Facebook from "../../public/facebook.png";
+import Instagram from "../../public/instagram.png";
+import X from "../../public/twitter.png";
 import DualCircle from "../../public/dual-circles.png";
+import ContactForm from "@/components/ContactForm";
 
 const Contact = () => {
   return (
@@ -25,10 +26,10 @@ const Contact = () => {
       {/*-----------------CONTACT FORM----------------*/}
       <div
         id="content"
-        className="grid grid-cols-5 gap-0 p-10 lg:max-w-7xl lg:mx-auto max-w-full"
+        className="grid md:grid-cols-5 grid-cols-1 gap-0 p-10 lg:max-w-7xl lg:mx-auto max-w-full"
       >
-        {/*---------LEFT FORM----------*/}
-        <div className="col-span-2 bg-primary rounded-lg p-10 flex flex-col gap-y-20 font-poppins relative z-1">
+        {/*-----------------------------------------------------LEFT FORM--------------------------------------------------*/}
+        <div className="col-span-2 bg-primary rounded-lg p-10 flex flex-col md:gap-y-20 gap-y-5 font-poppins relative z-1">
           <section className="gap-10">
             <h1 className="text-2xl font-bold text-secondary2">
               Contact Information
@@ -76,9 +77,39 @@ const Contact = () => {
 
           {/*---------ICONS----------*/}
           <section className="flex gap-5 z-10">
-            <Facebook size={25} className="text-[#4267B2]" />
-            <Instagram size={25} className="text-[#E1306C]" />
-            <X size={25} />
+            <a
+              href={"https://www.facebook.com/"}
+              target="_blank"
+              className="w-11 h-11 bg-secondary2 rounded-full flex justify-center items-center"
+            >
+              <Image
+                src={Facebook}
+                alt="Facebook Page Icon"
+                width={25}
+                height={25}
+              />
+            </a>
+
+            <a
+              href={"https://www.instagram.com/"}
+              target="_blank"
+              className="w-11 h-11 bg-secondary2 rounded-full flex justify-center items-center"
+            >
+              <Image
+                src={Instagram}
+                alt="Instagram Page Icon"
+                width={25}
+                height={25}
+              />
+            </a>
+
+            <a
+              href={"https://twitter.com/"}
+              target="_blank"
+              className="w-11 h-11 bg-secondary2 rounded-full flex justify-center items-center"
+            >
+              <Image src={X} alt="X Page Icon" width={25} height={25} />
+            </a>
           </section>
 
           <div className="absolute bottom-0 right-0 ">
@@ -86,8 +117,10 @@ const Contact = () => {
           </div>
         </div>
 
-        {/*---------RIGHT FORM----------*/}
-        <div className="col-span-3 bg-secondary2 rounded-lg z-0">RIGHT</div>
+        {/*----------------------------------------------RIGHT FORM-----------------------------------------------*/}
+        <div className="col-span-3 bg-secondary2 rounded-lg z-0">
+          <ContactForm/>
+        </div>
       </div>
     </div>
   );
