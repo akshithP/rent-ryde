@@ -3,8 +3,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const Cars = () => {
+  // Storing all cars data in useState 
   const [data, setData] = useState([]);
 
+  // Fecth the all car data initially when the page is loaded
   useEffect(() => {
     fetch("/api/cars")
       .then((response) => response.json())
