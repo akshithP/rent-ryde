@@ -14,7 +14,7 @@ const config: Config = {
         secondary: "#2F2F9B" /* Light PURPLE */,
         secondary2: "#24257D" /* Dark PURPLE */,
         textPrimary: "white" /* WHITE */,
-        textSecondary: "#FFD1F5" /* Grey */,
+        textSecondary: "#90A3BF" /* Grey */,
         borderCol: "#8D8D8D" /* Dark grey*/,
       },
       backgroundImage: {

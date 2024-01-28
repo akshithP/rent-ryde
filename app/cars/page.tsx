@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import CarCard from "@/components/CarCard";
 
 const Cars = () => {
-  // Storing all cars data in useState 
+  // Storing all cars data in useState
   const [data, setData] = useState([]);
 
   // Fecth the all car data initially when the page is loaded
@@ -14,8 +15,21 @@ const Cars = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-5 p-10">
+    <div className="grid grid-cols-3 p-10 gap-5">
       {data &&
+        data?.map((car: any) => (
+          <CarCard
+            key={car?._id}
+            imageURL={car?.image_url}
+            brand={car?.brand}
+            model={car?.model}
+            carType={car?.car_type}
+            driveType={car?.drive}
+            fuelEconomy={car?.fuel_economy}
+            seats={car?.seats}
+          ></CarCard>
+        ))}
+      {/* {data &&
         data?.map((car: any) => (
           <div
             key={car?._id}
@@ -32,7 +46,7 @@ const Cars = () => {
               alt="car image"
             />
           </div>
-        ))}
+        ))} */}
     </div>
   );
 };
