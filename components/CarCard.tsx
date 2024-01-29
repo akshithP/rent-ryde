@@ -38,7 +38,7 @@ const CarCard = ({
           height={288}
           src={imageURL}
           alt={`Image of ${brand} ${model}`}
-          className="rounded-tl-lg rounded-tr-lg max-w-96 min-w-96 min-h-56 max-h-56"
+          className="rounded-tl-lg rounded-tr-lg object-cover max-w-96 min-w-96 min-h-56 max-h-56"
         />
       </div>
 
