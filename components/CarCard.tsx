@@ -32,13 +32,13 @@ const CarCard = ({
       className={`bg-black ${poppins.className} max-w-96 gap-5 rounded-lg`}
     >
       {/*-----------------------------------CAR IMAGE---------------------------------*/}
-      <div id="imageContainer" className="max-w-96 min-w-96 min-h-56 max-h-56">
+      <div id="imageContainer" className="">
         <Image
           width={384}
           height={288}
           src={imageURL}
           alt={`Image of ${brand} ${model}`}
-          className="rounded-tl-lg rounded-tr-lg object-cover max-w-96 min-w-96 min-h-56 max-h-56"
+          className="rounded-tl-lg rounded-tr-lg object-cover  min-h-56 max-h-56"
         />
       </div>
 
