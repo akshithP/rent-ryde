@@ -7,11 +7,11 @@ import { IoLocationSharp as LocationPin } from "react-icons/io5";
 
 // Predefined Addresses forr the user to choose from
 const addresses = [
-  "Tarneit",
-  "St Kilda",
-  "Preston",
   "Clayton",
   "Melbourne CBD",
+  "Preston",
+  "St Kilda",
+  "Tarneit",
 ];
 
 const LocationSelection = () => {
