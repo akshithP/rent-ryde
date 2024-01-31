@@ -40,7 +40,7 @@ const LocationSelection = () => {
 
             {/*----------------------INPUT FIELD------------------- */}
             <Combobox.Input
-              className="w-full border-none py-2 pl-3 pr-10 text-lg leading-5 bg-secondary text-textPrimary focus:ring-0"
+              className="w-full border-none py-2 pl-3 pr-10 text-lg leading-5 bg-secondary text-textPrimary focus:ring-0 focus:outline-none"
               placeholder="Select your city..."
               displayValue={selectedAddress}
               onChange={(event) => setQuery(event.target.value)}
