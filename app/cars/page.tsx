@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import CarCard from "@/components/CarCard";
 import LocationSelection from "@/components/LocationSelection";
+import LocationMenu from "@/components/LocationMenu";
 
 const Cars = () => {
   // Storing all cars data in useState
@@ -19,9 +20,10 @@ const Cars = () => {
     <div>
       <div
         id="mainContainer"
-        className="flex flex-col mt-5 gap-5 p-5 items-center lg:max-w-7xl lg:mx-auto max-w-full bg-secondary2 rounded-md"
+        className="flex mt-5 gap-5 p-5 justify-center items-center lg:max-w-7xl lg:mx-auto max-w-full bg-secondary2 rounded-md"
       >
-        <LocationSelection />
+        
+        <LocationMenu/>
         {/* <div id="carCards" className="grid grid-cols-3 p-10 gap-5">
           {data &&
             data?.map((car: any) => (
