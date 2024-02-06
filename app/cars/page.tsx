@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import CarCard from "@/components/CarCard";
 import LocationMenu from "@/components/LocationMenu";
 import DatePicker from "@/components/DatePicker";
+import TimePicker from "@/components/TimePicker";
 
 const Cars = () => {
   // Storing all cars data in useState
@@ -24,6 +25,7 @@ const Cars = () => {
       >
         <LocationMenu />
         <DatePicker />
+        <TimePicker />
         {/* <div id="carCards" className="grid grid-cols-3 p-10 gap-5">
           {data &&
             data?.map((car: any) => (

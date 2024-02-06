@@ -1,16 +1,17 @@
 "use client";
 import React, { useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { MdLocationOn as LocationPin } from "react-icons/md";
+import { FaClock as Clock } from "react-icons/fa6";
+import { FaLongArrowAltRight as RightArrow } from "react-icons/fa";
 
-// Predefined Addresses forr the user to choose from
-const addresses = ["Clayton", "Docklands", "Preston", "St Kilda", "Richmond"];
+// Timings avaialble
+const timings = ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM"];
 
-const LocationMenu = () => {
-  // Use state for the selected location
-  const [location, setLocation] = useState("Set Location...");
+const TimePicker = () => {
+  // HOUR USE STAE
+  const [time, setTime] = useState("9:00 AM");
   return (
-    <div id="mainContainer" className="w-52">
+    <div id="mainContainer" className="w-80">
       <Menu
         as="div"
         className="relative flex-1 inline-block w-full text-center "
@@ -18,11 +19,13 @@ const LocationMenu = () => {
         {/*----------------------------DROPDOWN MENU----------------------------- */}
         <Menu.Button className="inline-flex flex-col w-full justify-center rounded-md bg-secondary px-4 py-2 md:text-lg text:md font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
           <div className="flex gap-2 justify-start items-center text-textSecondary text-base">
-            <LocationPin className="text-primary" size={20} />
-            <h1>Locations</h1>
+            <Clock className="text-primary" size={20} />
+            <h1>Time</h1>
           </div>
-          <div className="ml-7">
-            <h1>{location}</h1>
+          <div className="flex ml-7 gap-2 items-center">
+            <div>{time}</div>
+            <RightArrow size={25} className="text-primary" />
+            <div>{time}</div>
           </div>
         </Menu.Button>
 
@@ -39,14 +42,14 @@ const LocationMenu = () => {
           {/*----------------------------OPTIONS------------------------ */}
           <Menu.Items className="absolute mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none outline-none">
             <div>
-              {addresses.map((location, index) => {
+              {timings.map((time, index) => {
                 return (
                   <div
-                    onClick={() => setLocation(location)}
+                    onClick={() => setTime(time)}
                     key={index}
                     className="cursor-pointer px-2 py-1 hover:bg-primary text-md rounded-md"
                   >
-                    {location}
+                    {time}
                   </div>
                 );
               })}
@@ -58,4 +61,4 @@ const LocationMenu = () => {
   );
 };
 
-export default LocationMenu;
+export default TimePicker;
