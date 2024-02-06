@@ -10,13 +10,13 @@ const LocationMenu = () => {
   // Use state for the selected location
   const [location, setLocation] = useState("Set Location...");
   return (
-    <div id="mainContainer" className="w-52">
+    <div id="mainContainer" className="w-auto">
       <Menu
         as="div"
         className="relative flex-1 inline-block w-full text-center "
       >
         {/*----------------------------DROPDOWN MENU----------------------------- */}
-        <Menu.Button className="inline-flex flex-col w-full justify-center rounded-md bg-secondary px-4 py-2 md:text-lg text:md font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+        <Menu.Button className="inline-flex flex-col w-full justify-center rounded-md bg-secondary px-4 py-2 md:text-lg text-base font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
           <div className="flex gap-2 justify-start items-center text-textSecondary text-base">
             <LocationPin className="text-primary" size={20} />
             <h1>Locations</h1>
@@ -37,7 +37,7 @@ const LocationMenu = () => {
           leaveTo="transform opacity-0 scale-95"
         >
           {/*----------------------------OPTIONS------------------------ */}
-          <Menu.Items className="absolute mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none outline-none">
+          <Menu.Items className="absolute z-10 mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none outline-none">
             <div>
               {addresses.map((location, index) => {
                 return (

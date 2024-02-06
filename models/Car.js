@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const carScehma = new Schema(
+const carSchema = new Schema(
   {
     brand: {
       type: String,
@@ -40,4 +40,4 @@ const carScehma = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.models?.Car || mongoose.model("Cars", carScehma);
+export default mongoose.models.Cars || mongoose.model("Cars", carSchema);

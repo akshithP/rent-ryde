@@ -12,7 +12,7 @@ const DatePicker = () => {
   const [date, setDate] = useState([
     {
       startDate: new Date(),
-      endDate: null,
+      endDate: undefined,
       key: "selection",
     },
   ]);
@@ -24,12 +24,12 @@ const DatePicker = () => {
         className="relative flex-1 inline-block w-full text-center "
       >
         {/*----------------------------DROPDOWN MENU----------------------------- */}
-        <Menu.Button className="inline-flex flex-col w-full justify-center rounded-md bg-secondary px-4 py-2 md:text-lg text:md font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+        <Menu.Button className="inline-flex flex-col w-full justify-center rounded-md bg-secondary px-4 py-2 md:text-lg text-base font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
           <div className="flex gap-2 justify-start items-center text-textSecondary text-base">
             <Calendar className="text-primary" size={20} />
             <h1>Date</h1>
           </div>
-          <div className="flex ml-7 gap-2 items-center">
+          <div className="flex  gap-2 items-center">
             <div>{format(date[0].startDate, "dd/MM/yyyy")}</div>
             <RightArrow size={25} className="text-primary" />
             <div>
@@ -53,7 +53,7 @@ const DatePicker = () => {
           leaveTo="transform opacity-0 scale-95"
         >
           {/*----------------------------CALENDAR------------------------ */}
-          <Menu.Items className="absolute mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none">
+          <Menu.Items className="absolute z-10 mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none">
             <DateRange
               onChange={(item: any) => setDate([item.selection])}
               editableDateInputs={true}

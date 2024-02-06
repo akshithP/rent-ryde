@@ -17,16 +17,26 @@ const Cars = () => {
       .then((json) => setData(json));
   }, []);
 
+  console.log(data);
+
   return (
     <div>
       <div
         id="mainContainer"
-        className="flex mt-5 gap-5 p-5 justify-center items-center lg:max-w-7xl lg:mx-auto max-w-full bg-secondary2 rounded-md"
+        className="flex flex-col mt-5 gap-5 p-5 justify-center items-center lg:max-w-7xl lg:mx-auto max-w-full bg-secondary2 rounded-md"
       >
-        <LocationMenu />
-        <DatePicker />
-        <TimePicker />
-        {/* <div id="carCards" className="grid grid-cols-3 p-10 gap-5">
+        <div
+          id="menusContainer"
+          className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4"
+        >
+          <div className="lg:col-span-1 sm:col-span-2">
+            <LocationMenu />
+          </div>
+          <DatePicker />
+          <TimePicker />
+        </div>
+
+        <div id="carCards" className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5">
           {data &&
             data?.map((car: any) => (
               <CarCard
@@ -40,7 +50,7 @@ const Cars = () => {
                 seats={car?.seats}
               ></CarCard>
             ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );
