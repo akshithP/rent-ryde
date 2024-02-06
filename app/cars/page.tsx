@@ -5,6 +5,9 @@ import CarCard from "@/components/CarCard";
 import LocationMenu from "@/components/LocationMenu";
 import DatePicker from "@/components/DatePicker";
 import TimePicker from "@/components/TimePicker";
+import BrandFilter from "@/components/BrandFilter";
+import CarTypeFilter from "@/components/CarTypeFilter";
+import FuelTypeFilter from "@/components/FuelTypeFilter";
 
 const Cars = () => {
   // Storing all cars data in useState
@@ -16,8 +19,6 @@ const Cars = () => {
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
-
-  console.log(data);
 
   return (
     <div>
@@ -36,7 +37,20 @@ const Cars = () => {
           <TimePicker />
         </div>
 
-        <div id="carCards" className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5">
+        <div id="filterMenus" className="flex justify-start gap-3">
+          {/* <BrandFilter allBrands={(data as any[]).map((obj) => obj.brand)} /> */}
+          <CarTypeFilter
+            allTypes={(data as any[]).map((obj) => obj.car_type)}
+          />
+          <FuelTypeFilter
+            allTypes={(data as any[]).map((obj) => obj.fuel_type)}
+          />
+        </div>
+
+        <div
+          id="carCards"
+          className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
+        >
           {data &&
             data?.map((car: any) => (
               <CarCard
