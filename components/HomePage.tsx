@@ -15,7 +15,7 @@ const HomePage = () => {
         className="flex lg:flex-row flex-col gap-5 items-center lg:max-w-7xl lg:mx-auto max-w-full"
       >
         {/*-------------------------------------HERO TEXT CONTAINER--------------------------------*/}
-        <div id="heroTextContainer" className="flex-1 lg:mt-20 mt-16">
+        <div id="heroTextContainer" className="flex-1 lg:mt-20 mt-8">
           {/*-----------------TITLE----------------*/}
           <h1 className="font-extrabold md:text-6xl text-5xl font-poppins text-textPrimary">
             WHERE TO NEXT? <br /> YOUR{" "}
