@@ -51,7 +51,7 @@ const Cars = () => {
         </div>
 
         {/*--------------------------------CAR CARDS-------------------------------- */}
-        {/* <div
+        <div
           id="carCards"
           className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
@@ -68,7 +68,7 @@ const Cars = () => {
                 seats={car?.seats}
               ></CarCard>
             ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );
