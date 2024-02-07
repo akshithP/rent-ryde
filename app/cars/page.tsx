@@ -40,7 +40,7 @@ const Cars = () => {
         </div>
 
         {/*--------------------------------FILTER MENUS-------------------------------- */}
-        <div id="filterMenus" className="flex justify-start gap-3">
+        <div id="filterMenus" className="flex flex-1 flex-wrap gap-3">
           <BrandFilter allBrands={(data as any[]).map((obj) => obj.brand)} />
           <CarTypeFilter
             carTypes={(data as any[]).map((obj) => obj.car_type)}
