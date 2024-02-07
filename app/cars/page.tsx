@@ -8,6 +8,7 @@ import TimePicker from "@/components/TimePicker";
 import BrandFilter from "@/components/BrandFilter";
 import CarTypeFilter from "@/components/CarTypeFilter";
 import FuelTypeFilter from "@/components/FuelTypeFilter";
+import CarTypeFilter2 from "@/components/CarTypeFilter";
 
 const Cars = () => {
   // Storing all cars data in useState
@@ -45,9 +46,12 @@ const Cars = () => {
           <FuelTypeFilter
             allTypes={(data as any[]).map((obj) => obj.fuel_type)}
           />
+          <CarTypeFilter2
+            carTypes={(data as any[]).map((obj) => obj.car_type)}
+          />
         </div>
 
-        <div
+        {/* <div
           id="carCards"
           className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
@@ -64,7 +68,7 @@ const Cars = () => {
                 seats={car?.seats}
               ></CarCard>
             ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
