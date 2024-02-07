@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { plusJakartaSans } from "@/fonts";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Rent Ryde",
@@ -17,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${plusJakartaSans.className} bg-secondary`}>
         <NavBar />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

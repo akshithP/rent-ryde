@@ -2,9 +2,12 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import CarCard from "@/components/CarCard";
-import LocationMenu from "@/components/LocationMenu";
-import DatePicker from "@/components/DatePicker";
-import TimePicker from "@/components/TimePicker";
+import LocationMenu from "@/components/Schedule Bar/LocationMenu";
+import DatePicker from "@/components/Schedule Bar/DatePicker";
+import TimePicker from "@/components/Schedule Bar/TimePicker";
+import BrandFilter from "@/components/Filter Menus/BrandFilter";
+import CarTypeFilter from "@/components/Filter Menus/CarTypeFilter";
+import FuelTypeFilter from "@/components/Filter Menus/FuelTypeFilter";
 
 const Cars = () => {
   // Storing all cars data in useState
@@ -17,14 +20,14 @@ const Cars = () => {
       .then((json) => setData(json));
   }, []);
 
-  console.log(data);
-
   return (
     <div>
+      {/*---------------------------------------------MAIN CONTAINER----------------------------------------- */}
       <div
         id="mainContainer"
         className="flex flex-col mt-5 gap-5 p-5 justify-center items-center lg:max-w-7xl lg:mx-auto max-w-full bg-secondary2 rounded-md"
       >
+        {/*--------------------------------SCHEDULE MENUS-------------------------------- */}
         <div
           id="menusContainer"
           className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4"
@@ -36,7 +39,22 @@ const Cars = () => {
           <TimePicker />
         </div>
 
-        <div id="carCards" className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5">
+        {/*--------------------------------FILTER MENUS-------------------------------- */}
+        <div id="filterMenus" className="flex flex-1 flex-wrap gap-3">
+          <BrandFilter allBrands={(data as any[]).map((obj) => obj.brand)} />
+          <CarTypeFilter
+            carTypes={(data as any[]).map((obj) => obj.car_type)}
+          />
+          <FuelTypeFilter
+            fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
+          />
+        </div>
+
+        {/*--------------------------------CAR CARDS-------------------------------- */}
+        {/* <div
+          id="carCards"
+          className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
+        >
           {data &&
             data?.map((car: any) => (
               <CarCard
@@ -50,7 +68,7 @@ const Cars = () => {
                 seats={car?.seats}
               ></CarCard>
             ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
