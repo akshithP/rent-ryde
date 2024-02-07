@@ -3,6 +3,7 @@ import React from "react";
 import { FaChevronRight } from "react-icons/fa6";
 import CarImage from "../public/car-map.png";
 import Ellipse from "../public/ellipse.png";
+import Link from "next/link";
 import Image from "next/image";
 
 const HomePage = () => {
@@ -33,7 +34,9 @@ const HomePage = () => {
             onClick={handleClick}
             className="flex gap-2 mt-5 justify-center items-center bg-primary2 text-textPrimary font-bold px-4 py-3 rounded hover:bg-black transition-colors hover:scale-105 transition-all'"
           >
-            <p>Book Now</p>
+            <Link href={"/cars"}>
+              <p>Book Now</p>
+            </Link>
             <FaChevronRight className="text-xl font-semibold" />
           </button>
         </div>
