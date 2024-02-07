@@ -2,12 +2,12 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import CarCard from "@/components/CarCard";
-import LocationMenu from "@/components/LocationMenu";
-import DatePicker from "@/components/DatePicker";
-import TimePicker from "@/components/TimePicker";
-import BrandFilter from "@/components/BrandFilter";
-import CarTypeFilter from "@/components/CarTypeFilter";
-import FuelTypeFilter from "@/components/FuelTypeFilter";
+import LocationMenu from "@/components/Schedule Bar/LocationMenu";
+import DatePicker from "@/components/Schedule Bar/DatePicker";
+import TimePicker from "@/components/Schedule Bar/TimePicker";
+import BrandFilter from "@/components/Filter Menus/BrandFilter";
+import CarTypeFilter from "@/components/Filter Menus/CarTypeFilter";
+import FuelTypeFilter from "@/components/Filter Menus/FuelTypeFilter";
 
 const Cars = () => {
   // Storing all cars data in useState
@@ -46,7 +46,7 @@ const Cars = () => {
             carTypes={(data as any[]).map((obj) => obj.car_type)}
           />
           <FuelTypeFilter
-            allTypes={(data as any[]).map((obj) => obj.fuel_type)}
+            fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
           />
         </div>
 
