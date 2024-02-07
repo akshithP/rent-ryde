@@ -7,11 +7,10 @@ import {
   MenuList,
   MenuItemOption,
   MenuOptionGroup,
-  MenuDivider,
 } from "@chakra-ui/react";
 import { IoIosArrowDown as DropDown } from "react-icons/io";
 
-const CarTypeFilter2 = ({ carTypes }: any) => {
+const CarTypeFilter = ({ carTypes }: any) => {
   // Ensuring the filter options are unique and sorted beforehand
   const uniqueTypes = [...new Set(carTypes)] as string[];
   uniqueTypes.sort();
@@ -63,4 +62,4 @@ const CarTypeFilter2 = ({ carTypes }: any) => {
   );
 };
 
-export default CarTypeFilter2;
+export default CarTypeFilter;

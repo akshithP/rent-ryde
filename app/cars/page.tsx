@@ -8,7 +8,6 @@ import TimePicker from "@/components/TimePicker";
 import BrandFilter from "@/components/BrandFilter";
 import CarTypeFilter from "@/components/CarTypeFilter";
 import FuelTypeFilter from "@/components/FuelTypeFilter";
-import CarTypeFilter2 from "@/components/CarTypeFilter";
 
 const Cars = () => {
   // Storing all cars data in useState
@@ -23,10 +22,12 @@ const Cars = () => {
 
   return (
     <div>
+      {/*---------------------------------------------MAIN CONTAINER----------------------------------------- */}
       <div
         id="mainContainer"
         className="flex flex-col mt-5 gap-5 p-5 justify-center items-center lg:max-w-7xl lg:mx-auto max-w-full bg-secondary2 rounded-md"
       >
+        {/*--------------------------------SCHEDULE MENUS-------------------------------- */}
         <div
           id="menusContainer"
           className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4"
@@ -38,19 +39,18 @@ const Cars = () => {
           <TimePicker />
         </div>
 
+        {/*--------------------------------FILTER MENUS-------------------------------- */}
         <div id="filterMenus" className="flex justify-start gap-3">
-          {/* <BrandFilter allBrands={(data as any[]).map((obj) => obj.brand)} /> */}
+          <BrandFilter allBrands={(data as any[]).map((obj) => obj.brand)} />
           <CarTypeFilter
-            allTypes={(data as any[]).map((obj) => obj.car_type)}
+            carTypes={(data as any[]).map((obj) => obj.car_type)}
           />
           <FuelTypeFilter
             allTypes={(data as any[]).map((obj) => obj.fuel_type)}
           />
-          <CarTypeFilter2
-            carTypes={(data as any[]).map((obj) => obj.car_type)}
-          />
         </div>
 
+        {/*--------------------------------CAR CARDS-------------------------------- */}
         {/* <div
           id="carCards"
           className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
