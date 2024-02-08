@@ -8,15 +8,7 @@ import { Menu, Transition } from "@headlessui/react";
 import { IoCalendar as Calendar } from "react-icons/io5";
 import { FaLongArrowAltRight as RightArrow } from "react-icons/fa";
 
-const DatePicker = () => {
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: undefined,
-      key: "selection",
-    },
-  ]);
-
+const DatePicker = ({ date, setDate }: any) => {
   return (
     <div id="mainContainer" className="w-auto	">
       <Menu
@@ -53,7 +45,7 @@ const DatePicker = () => {
           leaveTo="transform opacity-0 scale-95"
         >
           {/*----------------------------CALENDAR------------------------ */}
-          <Menu.Items className="absolute z-10 mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none">
+          <Menu.Items className="absolute z-50 mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-transparent focus:outline-none">
             <DateRange
               onChange={(item: any) => setDate([item.selection])}
               editableDateInputs={true}
