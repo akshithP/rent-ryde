@@ -70,7 +70,7 @@ const Cars = () => {
         </div>
 
         {/*--------------------------------FILTER MENUS-------------------------------- */}
-        {/* <div id="filterMenus" className="flex flex-1 flex-wrap gap-3">
+        <div id="filterMenus" className="flex flex-1 flex-wrap gap-3">
           <BrandFilter allBrands={(data as any[]).map((obj) => obj.brand)} />
           <CarTypeFilter
             carTypes={(data as any[]).map((obj) => obj.car_type)}
@@ -78,10 +78,10 @@ const Cars = () => {
           <FuelTypeFilter
             fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
           />
-        </div> */}
+        </div>
 
         {/*--------------------------------CAR CARDS-------------------------------- */}
-        {/* <div
+        <div
           id="carCards"
           className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
@@ -98,7 +98,7 @@ const Cars = () => {
                 seats={car?.seats}
               ></CarCard>
             ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );
