@@ -8,10 +8,24 @@ import TimePicker from "@/components/Schedule Bar/TimePicker";
 import BrandFilter from "@/components/Filter Menus/BrandFilter";
 import CarTypeFilter from "@/components/Filter Menus/CarTypeFilter";
 import FuelTypeFilter from "@/components/Filter Menus/FuelTypeFilter";
+import MobileScheduleBar from "@/components/MobileScheduleBar";
+import { useMediaQuery } from "react-responsive";
 
 const Cars = () => {
   // Storing all cars data in useState
   const [data, setData] = useState([]);
+  const [location, setLocation] = useState("Set Location...");
+  const [date, setDate] = useState([
+    {
+      startDate: new Date(),
+      endDate: undefined,
+      key: "selection",
+    },
+  ]);
+  const [time, setTime] = useState("9:00 AM");
+
+  // Use media query to determine screen size
+  const isMobile = useMediaQuery({ maxWidth: 640 });
 
   // Fecth the all car data initially when the page is loaded
   useEffect(() => {
@@ -28,19 +42,35 @@ const Cars = () => {
         className="flex flex-col mt-5 gap-5 p-5 justify-center items-center lg:max-w-7xl lg:mx-auto max-w-full bg-secondary2 rounded-md"
       >
         {/*--------------------------------SCHEDULE MENUS-------------------------------- */}
-        <div
-          id="menusContainer"
-          className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4"
-        >
-          <div className="lg:col-span-1 sm:col-span-2">
-            <LocationMenu />
-          </div>
-          <DatePicker />
-          <TimePicker />
+        <div className="w-full">
+          {isMobile ? (
+            <MobileScheduleBar
+              selectedLocation={location}
+              setSelectedLocation={setLocation}
+              date={date}
+              setDate={setDate}
+              time={time}
+              setTime={setTime}
+            />
+          ) : (
+            <div
+              id="menusContainer"
+              className="grid lg:grid-cols-3 sm:grid-cols-2 gap-4 w-full"
+            >
+              <div className="lg:col-span-1 sm:col-span-2">
+                <LocationMenu
+                  selectedLocation={location}
+                  setSelectedLocation={setLocation}
+                />
+              </div>
+              <DatePicker date={date} setDate={setDate} />
+              <TimePicker time={time} setTime={setTime} />
+            </div>
+          )}
         </div>
 
         {/*--------------------------------FILTER MENUS-------------------------------- */}
-        <div id="filterMenus" className="flex flex-1 flex-wrap gap-3">
+        {/* <div id="filterMenus" className="flex flex-1 flex-wrap gap-3">
           <BrandFilter allBrands={(data as any[]).map((obj) => obj.brand)} />
           <CarTypeFilter
             carTypes={(data as any[]).map((obj) => obj.car_type)}
@@ -48,10 +78,10 @@ const Cars = () => {
           <FuelTypeFilter
             fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
           />
-        </div>
+        </div> */}
 
         {/*--------------------------------CAR CARDS-------------------------------- */}
-        <div
+        {/* <div
           id="carCards"
           className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
@@ -68,7 +98,7 @@ const Cars = () => {
                 seats={car?.seats}
               ></CarCard>
             ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

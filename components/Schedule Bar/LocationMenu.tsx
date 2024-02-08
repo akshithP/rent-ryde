@@ -6,9 +6,7 @@ import { MdLocationOn as LocationPin } from "react-icons/md";
 // Predefined Addresses forr the user to choose from
 const addresses = ["Clayton", "Docklands", "Preston", "St Kilda", "Richmond"];
 
-const LocationMenu = () => {
-  // Use state for the selected location
-  const [location, setLocation] = useState("Set Location...");
+const LocationMenu = ({ selectedLocation, setSelectedLocation }: any) => {
   return (
     <div id="mainContainer" className="w-auto">
       <Menu
@@ -22,7 +20,7 @@ const LocationMenu = () => {
             <h1>Locations</h1>
           </div>
           <div className="ml-7">
-            <h1>{location}</h1>
+            <h1>{selectedLocation}</h1>
           </div>
         </Menu.Button>
 
@@ -37,12 +35,12 @@ const LocationMenu = () => {
           leaveTo="transform opacity-0 scale-95"
         >
           {/*----------------------------OPTIONS------------------------ */}
-          <Menu.Items className="absolute z-10 mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none outline-none">
+          <Menu.Items className="absolute z-30 mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none outline-none">
             <div>
               {addresses.map((location, index) => {
                 return (
                   <div
-                    onClick={() => setLocation(location)}
+                    onClick={() => setSelectedLocation(location)}
                     key={index}
                     className="cursor-pointer px-2 py-1 hover:bg-primary text-md rounded-md"
                   >

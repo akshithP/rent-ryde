@@ -7,9 +7,7 @@ import { FaLongArrowAltRight as RightArrow } from "react-icons/fa";
 // Timings avaialble
 const timings = ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM"];
 
-const TimePicker = () => {
-  // HOUR USE STAE
-  const [time, setTime] = useState("9:00 AM");
+const TimePicker = ({ time, setTime }: any) => {
   return (
     <div id="mainContainer" className="w-auto">
       <Menu
@@ -40,7 +38,7 @@ const TimePicker = () => {
           leaveTo="transform opacity-0 scale-95"
         >
           {/*----------------------------OPTIONS------------------------ */}
-          <Menu.Items className="absolute z-10 mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none outline-none">
+          <Menu.Items className="absolute z-30 mt-2 p-2 w-full text-left text-md text-textPrimary origin-top-right divide-y divide-red-300 rounded-md bg-secondary shadow-lg ring-2 ring-black/5 focus:outline-none outline-none">
             <div>
               {timings.map((time, index) => {
                 return (
