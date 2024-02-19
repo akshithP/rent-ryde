@@ -10,6 +10,8 @@ import CarTypeFilter from "@/components/Filter Menus/CarTypeFilter";
 import FuelTypeFilter from "@/components/Filter Menus/FuelTypeFilter";
 import MobileScheduleBar from "@/components/MobileScheduleBar";
 import { useMediaQuery } from "react-responsive";
+import CarsPagination from "@/components/CarsPagination";
+import Pagination from "@mui/material/Pagination";
 
 const Cars = () => {
   // Storing all cars data in useState
@@ -33,6 +35,14 @@ const Cars = () => {
       .then((response) => response.json())
       .then((json) => setData(json));
   }, []);
+
+  // For Pagination
+  const [currentPage, setCurrentpage] = useState(1);
+  const cardsPerPage = 12;
+  const lastIndex = currentPage * cardsPerPage;
+  const firstIndex = lastIndex - cardsPerPage;
+  const currentCarCards = data.slice(firstIndex, lastIndex);
+  const totalPages = Math.ceil(data.length / cardsPerPage);
 
   return (
     <div>
@@ -85,8 +95,8 @@ const Cars = () => {
           id="carCards"
           className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
-          {data &&
-            data?.map((car: any) => (
+          {currentCarCards &&
+            currentCarCards?.map((car: any) => (
               <CarCard
                 key={car?._id}
                 imageURL={car?.image_url}
@@ -98,6 +108,13 @@ const Cars = () => {
                 seats={car?.seats}
               ></CarCard>
             ))}
+        </div>
+        {/*--------------------------------PAGINATION-------------------------------- */}
+        <div>
+          <CarsPagination
+            totalPages={totalPages}
+            setCurrentPage={setCurrentpage}
+          />
         </div>
       </div>
     </div>

@@ -77,16 +77,6 @@ const About = () => {
           </section>
         </div>
       </div>
-
-      {/*-----------------BOTTOM TRIANGLE CONTAINER--------------*/}
-      <div className="flex justify-center">
-        <div
-          id="bottomCurve"
-          className="fixed bottom-0 right-0 lg:max-w-7xl lg:mx-auto max-w-full overflow-hidden "
-        >
-          <Image src={Triangle} alt="Ellipse Shape" className="w-full " />
-        </div>
-      </div>
     </div>
   );
 };
