@@ -109,11 +109,10 @@ const Cars = () => {
               ></CarCard>
             ))}
         </div>
+        {/*--------------------------------PAGINATION-------------------------------- */}
         <div>
           <CarsPagination
             totalPages={totalPages}
-            cardsPerPage={cardsPerPage}
-            totalCards={data.length}
             setCurrentPage={setCurrentpage}
           />
         </div>

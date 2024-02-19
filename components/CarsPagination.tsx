@@ -5,17 +5,10 @@ import { IoIosArrowBack as Prev } from "react-icons/io";
 
 interface props {
   totalPages: number;
-  cardsPerPage: number;
-  totalCards: number;
   setCurrentPage: any;
 }
 
-const CarsPagination = ({
-  totalPages,
-  cardsPerPage,
-  totalCards,
-  setCurrentPage,
-}: props) => {
+const CarsPagination = ({ totalPages, setCurrentPage }: props) => {
   // Handle when page is clicked
   const handleOnChange = (event: any) => {
     setCurrentPage(event.selected + 1);
@@ -40,7 +33,7 @@ const CarsPagination = ({
             <h1>Prev</h1>
           </span>
         }
-        breakClassName='3'
+        breakClassName="3"
         renderOnZeroPageCount={null}
         containerClassName="flex items-center justify-center gap-3 text-textPrimary font-medium bg-grey "
         pageClassName="px-3 py-1 rounded-lg hover:bg-primary2 cursor:pointer"
