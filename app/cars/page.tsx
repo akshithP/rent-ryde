@@ -42,6 +42,7 @@ const Cars = () => {
   const lastIndex = currentPage * cardsPerPage;
   const firstIndex = lastIndex - cardsPerPage;
   const currentCarCards = data.slice(firstIndex, lastIndex);
+  const totalPages = Math.ceil(data.length / cardsPerPage);
 
   return (
     <div>
@@ -110,10 +111,10 @@ const Cars = () => {
         </div>
         <div>
           <CarsPagination
-            totalCars={data.length}
+            totalPages={totalPages}
             cardsPerPage={cardsPerPage}
+            totalCards={data.length}
             setCurrentPage={setCurrentpage}
-            currentPage={currentPage}
           />
         </div>
       </div>
