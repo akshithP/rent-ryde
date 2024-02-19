@@ -31,7 +31,8 @@ const CarsPagination = ({
             <Next size={20} />
           </span>
         }
-        pageRangeDisplayed={0}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={0}
         pageCount={totalPages}
         previousLabel={
           <span className="flex rounded-lg  gap-1 items-center justify-center bg-black px-2 py-1 outline-none">
@@ -39,6 +40,7 @@ const CarsPagination = ({
             <h1>Prev</h1>
           </span>
         }
+        breakClassName='3'
         renderOnZeroPageCount={null}
         containerClassName="flex items-center justify-center gap-3 text-textPrimary font-medium bg-grey "
         pageClassName="px-3 py-1 rounded-lg hover:bg-primary2 cursor:pointer"
