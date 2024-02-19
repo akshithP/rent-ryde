@@ -49,10 +49,10 @@ const Cars = () => {
       {/*---------------------------------------------MAIN CONTAINER----------------------------------------- */}
       <div
         id="mainContainer"
-        className="flex flex-col mt-5 gap-5 p-5 justify-center items-center lg:max-w-7xl lg:mx-auto max-w-full bg-secondary2 rounded-md"
+        className="grid grid-cols-3 mt-5 gap-5 p-5 justify-center items-center lg:max-w-7xl lg:mx-auto  bg-secondary2 rounded-md"
       >
         {/*--------------------------------SCHEDULE MENUS-------------------------------- */}
-        <div className="w-full">
+        <div className="col-span-3 w-full">
           {isMobile ? (
             <MobileScheduleBar
               selectedLocation={location}
@@ -80,20 +80,31 @@ const Cars = () => {
         </div>
 
         {/*--------------------------------FILTER MENUS-------------------------------- */}
-        <div id="filterMenus" className="flex flex-1 flex-wrap gap-3">
-          <BrandFilter allBrands={(data as any[]).map((obj) => obj.brand)} />
-          <CarTypeFilter
-            carTypes={(data as any[]).map((obj) => obj.car_type)}
-          />
-          <FuelTypeFilter
-            fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
-          />
+        <div id="filterMenus" className="col-span-3">
+          <ul className="flex flex-row overflow-x-auto overflow-hidden gap-3 justify-items-center">
+            <li>
+              <BrandFilter
+                allBrands={(data as any[]).map((obj) => obj.brand)}
+              />
+            </li>
+            <li>
+              <CarTypeFilter
+                carTypes={(data as any[]).map((obj) => obj.car_type)}
+              />
+            </li>
+            <li>
+              <FuelTypeFilter
+                fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
+              />
+            </li>
+          </ul>
         </div>
 
         {/*--------------------------------CAR CARDS-------------------------------- */}
+
         <div
           id="carCards"
-          className="grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
+          className="col-span-3 grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
           {currentCarCards &&
             currentCarCards?.map((car: any) => (
@@ -110,7 +121,7 @@ const Cars = () => {
             ))}
         </div>
         {/*--------------------------------PAGINATION-------------------------------- */}
-        <div>
+        <div className="col-span-3 place-items-center">
           <CarsPagination
             totalPages={totalPages}
             setCurrentPage={setCurrentpage}
