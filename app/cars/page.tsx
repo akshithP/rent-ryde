@@ -22,6 +22,8 @@ const Cars = () => {
   // Storing all cars data in useState
   const [data, setData] = useState([]);
   const [cars, setCars] = useState([]);
+
+  // Schedule menu's useState values
   const [location, setLocation] = useState("Set Location...");
   const [date, setDate] = useState([
     {
@@ -35,7 +37,7 @@ const Cars = () => {
   // Use media query to determine screen size
   const isMobile = useMediaQuery({ maxWidth: 640 });
 
-  // Fecth the all car data initially when the page is loaded
+  // Fetch all car data initially when the page is loaded
   useEffect(() => {
     fetch("/api/cars")
       .then((response) => response.json())
@@ -60,14 +62,14 @@ const Cars = () => {
     totalPages = Math.ceil(cars.length / cardsPerPage);
   }, [cars, currentPage]);
 
-  // Filter menus
-  // All filter selected values
+  // All filter menus selected items are store in activeFilters
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
     brands: [],
     car_types: [],
     fuel_types: [],
   });
 
+  // Filters the displayed cars based on the chosen filters
   const applyFilters = () => {
     let result = data;
 
@@ -92,7 +94,7 @@ const Cars = () => {
     setCars(result);
   };
 
-  // Run the filter function everytime new brand is selected
+  // Run the applyfilter function everytime new filter option is selected
   useEffect(() => {
     applyFilters();
   }, [data, activeFilters]);
@@ -138,30 +140,18 @@ const Cars = () => {
             <li>
               <BrandFilter
                 allBrands={(data as any[]).map((obj) => obj.brand)}
-                allCars={cars}
-                setCars={setCars}
-                data={data}
-                activeFilters={activeFilters}
                 setActiveFilters={setActiveFilters}
               />
             </li>
             <li>
               <CarTypeFilter
                 carTypes={(data as any[]).map((obj) => obj.car_type)}
-                allCars={cars}
-                setCars={setCars}
-                data={data}
-                activeFilters={activeFilters}
                 setActiveFilters={setActiveFilters}
               />
             </li>
             <li>
               <FuelTypeFilter
                 fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
-                allCars={cars}
-                setCars={setCars}
-                data={data}
-                activeFilters={activeFilters}
                 setActiveFilters={setActiveFilters}
               />
             </li>
