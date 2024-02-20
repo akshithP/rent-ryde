@@ -15,6 +15,7 @@ import CarsPagination from "@/components/CarsPagination";
 interface ActiveFilters {
   brands: string[];
   car_types: string[];
+  fuel_types: string[];
 }
 
 const Cars = () => {
@@ -64,6 +65,7 @@ const Cars = () => {
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
     brands: [],
     car_types: [],
+    fuel_types: [],
   });
 
   const applyFilters = () => {
@@ -78,6 +80,12 @@ const Cars = () => {
     if (activeFilters.car_types.length) {
       result = result.filter((car: any) =>
         activeFilters.car_types.includes(car.car_type)
+      );
+    }
+
+    if (activeFilters.fuel_types.length) {
+      result = result.filter((car: any) =>
+        activeFilters.fuel_types.includes(car.fuel_type)
       );
     }
 
@@ -150,6 +158,11 @@ const Cars = () => {
             <li>
               <FuelTypeFilter
                 fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
+                allCars={cars}
+                setCars={setCars}
+                data={data}
+                activeFilters={activeFilters}
+                setActiveFilters={setActiveFilters}
               />
             </li>
           </ul>
