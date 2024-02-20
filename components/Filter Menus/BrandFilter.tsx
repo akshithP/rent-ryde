@@ -15,8 +15,8 @@ const BrandFilter = ({
   allCars,
   setCars,
   data,
-  selectedFilters,
-  setSelectedFilters,
+  activeFilters,
+  setActiveFilters,
 }: any) => {
   // Ensuring the filter options are unique and sorted beforehand
   const uniqueTypes = [...new Set(allBrands)] as string[];
@@ -27,7 +27,10 @@ const BrandFilter = ({
 
   // Whenever new brand is selected
   const handleTypeSelectionChange = (selectedValues: string | string[]) => {
-    setSelectedFilters(selectedValues);
+    setActiveFilters((prevFilters: any) => ({
+      ...prevFilters,
+      ["brands"]: selectedValues,
+    }));
   };
 
   return (

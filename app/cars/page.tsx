@@ -12,6 +12,11 @@ import MobileScheduleBar from "@/components/MobileScheduleBar";
 import { useMediaQuery } from "react-responsive";
 import CarsPagination from "@/components/CarsPagination";
 
+interface ActiveFilters {
+  brands: string[];
+  car_types: string[];
+}
+
 const Cars = () => {
   // Storing all cars data in useState
   const [data, setData] = useState([]);
@@ -56,18 +61,33 @@ const Cars = () => {
 
   // Filter menus
   // All filter selected values
-  const [selectedFilters, setSelectedFilters] = useState<string | string[]>([]);
+  const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
+    brands: [],
+    car_types: [],
+  });
+
+  const applyFilters = () => {
+    let result = data;
+
+    if (activeFilters.brands.length) {
+      result = result.filter((car: any) =>
+        activeFilters.brands.includes(car.brand)
+      );
+    }
+
+    if (activeFilters.car_types.length) {
+      result = result.filter((car: any) =>
+        activeFilters.car_types.includes(car.car_type)
+      );
+    }
+
+    setCars(result);
+  };
 
   // Run the filter function everytime new brand is selected
   useEffect(() => {
-    const filteredCars = data.filter(
-      (car: any) =>
-        selectedFilters.length == 0 ||
-        selectedFilters.includes(car.brand) ||
-        selectedFilters.includes(car.car_type)
-    );
-    setCars(filteredCars);
-  }, [data, selectedFilters, setCars]);
+    applyFilters();
+  }, [data, activeFilters]);
 
   return (
     <div>
@@ -113,8 +133,8 @@ const Cars = () => {
                 allCars={cars}
                 setCars={setCars}
                 data={data}
-                selectedFilters={selectedFilters}
-                setSelectedFilters={setSelectedFilters}
+                activeFilters={activeFilters}
+                setActiveFilters={setActiveFilters}
               />
             </li>
             <li>
@@ -123,8 +143,8 @@ const Cars = () => {
                 allCars={cars}
                 setCars={setCars}
                 data={data}
-                selectedFilters={selectedFilters}
-                setSelectedFilters={setSelectedFilters}
+                activeFilters={activeFilters}
+                setActiveFilters={setActiveFilters}
               />
             </li>
             <li>

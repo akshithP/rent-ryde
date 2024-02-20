@@ -15,8 +15,8 @@ const CarTypeFilter = ({
   allCars,
   setCars,
   data,
-  selectedFilters,
-  setSelectedFilters,
+  activeFilters,
+  setActiveFilters,
 }: any) => {
   // Ensuring the filter options are unique and sorted beforehand
   const uniqueTypes = [...new Set(carTypes)] as string[];
@@ -26,7 +26,10 @@ const CarTypeFilter = ({
   // const [selectedTypes, setSelectedTypes] = useState<string | string[]>([]);
 
   const handleTypeSelectionChange = (selectedValues: string | string[]) => {
-    setSelectedFilters(selectedValues);
+    setActiveFilters((prevFilters: any) => ({
+      ...prevFilters,
+      ["car_types"]: selectedValues,
+    }));
   };
 
   return (
