@@ -16,7 +16,6 @@ const Cars = () => {
   // Storing all cars data in useState
   const [data, setData] = useState([]);
   const [cars, setCars] = useState([]);
-  const [currentCards, setCurrentCards] = useState([]);
   const [location, setLocation] = useState("Set Location...");
   const [date, setDate] = useState([
     {
@@ -116,7 +115,6 @@ const Cars = () => {
         </div>
 
         {/*--------------------------------CAR CARDS-------------------------------- */}
-
         <div
           id="carCards"
           className="col-span-3 grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
@@ -135,6 +133,7 @@ const Cars = () => {
               ></CarCard>
             ))}
         </div>
+        
         {/*--------------------------------PAGINATION-------------------------------- */}
         <div className="col-span-3 place-items-center">
           <CarsPagination
