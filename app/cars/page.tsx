@@ -11,6 +11,7 @@ import FuelTypeFilter from "@/components/Filter Menus/FuelTypeFilter";
 import MobileScheduleBar from "@/components/MobileScheduleBar";
 import { useMediaQuery } from "react-responsive";
 import CarsPagination from "@/components/CarsPagination";
+import ClearFilters from "@/components/Filter Menus/ClearFilters";
 
 interface ActiveFilters {
   brands: string[];
@@ -155,6 +156,18 @@ const Cars = () => {
                 setActiveFilters={setActiveFilters}
               />
             </li>
+            {activeFilters.brands.length > 0 ||
+            activeFilters.car_types.length > 0 ||
+            activeFilters.fuel_types.length > 0 ? (
+              <li>
+                <ClearFilters
+                  activeFilters={activeFilters}
+                  setActiveFilters={setActiveFilters}
+                />
+              </li>
+            ) : (
+              ""
+            )}
           </ul>
         </div>
 
