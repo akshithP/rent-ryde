@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Menu,
   MenuButton,
@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { IoIosArrowDown as DropDown } from "react-icons/io";
 
-const BrandFilter = ({ allBrands }: any) => {
+const BrandFilter = ({ allBrands, allCars, setCars, data }: any) => {
   // Ensuring the filter options are unique and sorted beforehand
   const uniqueTypes = [...new Set(allBrands)] as string[];
   uniqueTypes.sort();
@@ -18,9 +18,19 @@ const BrandFilter = ({ allBrands }: any) => {
   // Use state for the selected types
   const [selectedBrands, setSelectedBrands] = useState<string | string[]>([]);
 
+  // Whenever new brand is selected
   const handleTypeSelectionChange = (selectedValues: string | string[]) => {
     setSelectedBrands(selectedValues);
   };
+  
+  // Run the filter function everytime new brand is selected
+  useEffect(() => {
+    const filteredBrands = data.filter(
+      (car: any) =>
+        selectedBrands.length == 0 || selectedBrands.includes(car.brand)
+    );
+    setCars(filteredBrands);
+  }, [data, selectedBrands, setCars]);
 
   return (
     <Menu closeOnSelect={false}>

@@ -11,11 +11,12 @@ import FuelTypeFilter from "@/components/Filter Menus/FuelTypeFilter";
 import MobileScheduleBar from "@/components/MobileScheduleBar";
 import { useMediaQuery } from "react-responsive";
 import CarsPagination from "@/components/CarsPagination";
-import Pagination from "@mui/material/Pagination";
 
 const Cars = () => {
   // Storing all cars data in useState
   const [data, setData] = useState([]);
+  const [cars, setCars] = useState([]);
+  const [currentCards, setCurrentCards] = useState([]);
   const [location, setLocation] = useState("Set Location...");
   const [date, setDate] = useState([
     {
@@ -33,16 +34,26 @@ const Cars = () => {
   useEffect(() => {
     fetch("/api/cars")
       .then((response) => response.json())
-      .then((json) => setData(json));
+      .then((json) => {
+        setData(json);
+        setCars(json);
+      });
   }, []);
 
   // For Pagination
   const [currentPage, setCurrentpage] = useState(1);
   const cardsPerPage = 12;
-  const lastIndex = currentPage * cardsPerPage;
-  const firstIndex = lastIndex - cardsPerPage;
-  const currentCarCards = data.slice(firstIndex, lastIndex);
-  const totalPages = Math.ceil(data.length / cardsPerPage);
+  let lastIndex = currentPage * cardsPerPage;
+  let firstIndex = lastIndex - cardsPerPage;
+  let currentCarCards = cars.slice(firstIndex, lastIndex);
+  let totalPages = Math.ceil(cars.length / cardsPerPage);
+
+  useEffect(() => {
+    lastIndex = currentPage * cardsPerPage;
+    firstIndex = lastIndex - cardsPerPage;
+    currentCarCards = cars.slice(firstIndex, lastIndex);
+    totalPages = Math.ceil(cars.length / cardsPerPage);
+  }, [cars, currentPage]);
 
   return (
     <div>
@@ -85,6 +96,10 @@ const Cars = () => {
             <li>
               <BrandFilter
                 allBrands={(data as any[]).map((obj) => obj.brand)}
+                allCars={cars}
+                setCars={setCars}
+                data={data}
+                c
               />
             </li>
             <li>
