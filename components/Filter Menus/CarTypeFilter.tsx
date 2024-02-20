@@ -10,16 +10,22 @@ import {
 } from "@chakra-ui/react";
 import { IoIosArrowDown as DropDown } from "react-icons/io";
 
-const CarTypeFilter = ({ carTypes }: any) => {
+const CarTypeFilter = ({
+  carTypes,
+  setActiveFilters,
+}: any) => {
   // Ensuring the filter options are unique and sorted beforehand
   const uniqueTypes = [...new Set(carTypes)] as string[];
   uniqueTypes.sort();
 
   // Use state for the selected types
-  const [selectedTypes, setSelectedTypes] = useState<string | string[]>([]);
+  // const [selectedTypes, setSelectedTypes] = useState<string | string[]>([]);
 
   const handleTypeSelectionChange = (selectedValues: string | string[]) => {
-    setSelectedTypes(selectedValues);
+    setActiveFilters((prevFilters: any) => ({
+      ...prevFilters,
+      ["car_types"]: selectedValues,
+    }));
   };
 
   return (

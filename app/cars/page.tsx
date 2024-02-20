@@ -12,10 +12,18 @@ import MobileScheduleBar from "@/components/MobileScheduleBar";
 import { useMediaQuery } from "react-responsive";
 import CarsPagination from "@/components/CarsPagination";
 
+interface ActiveFilters {
+  brands: string[];
+  car_types: string[];
+  fuel_types: string[];
+}
+
 const Cars = () => {
   // Storing all cars data in useState
   const [data, setData] = useState([]);
   const [cars, setCars] = useState([]);
+
+  // Schedule menu's useState values
   const [location, setLocation] = useState("Set Location...");
   const [date, setDate] = useState([
     {
@@ -29,7 +37,7 @@ const Cars = () => {
   // Use media query to determine screen size
   const isMobile = useMediaQuery({ maxWidth: 640 });
 
-  // Fecth the all car data initially when the page is loaded
+  // Fetch all car data initially when the page is loaded
   useEffect(() => {
     fetch("/api/cars")
       .then((response) => response.json())
@@ -53,6 +61,43 @@ const Cars = () => {
     currentCarCards = cars.slice(firstIndex, lastIndex);
     totalPages = Math.ceil(cars.length / cardsPerPage);
   }, [cars, currentPage]);
+
+  // All filter menus selected items are store in activeFilters
+  const [activeFilters, setActiveFilters] = useState<ActiveFilters>({
+    brands: [],
+    car_types: [],
+    fuel_types: [],
+  });
+
+  // Filters the displayed cars based on the chosen filters
+  const applyFilters = () => {
+    let result = data;
+
+    if (activeFilters.brands.length) {
+      result = result.filter((car: any) =>
+        activeFilters.brands.includes(car.brand)
+      );
+    }
+
+    if (activeFilters.car_types.length) {
+      result = result.filter((car: any) =>
+        activeFilters.car_types.includes(car.car_type)
+      );
+    }
+
+    if (activeFilters.fuel_types.length) {
+      result = result.filter((car: any) =>
+        activeFilters.fuel_types.includes(car.fuel_type)
+      );
+    }
+
+    setCars(result);
+  };
+
+  // Run the applyfilter function everytime new filter option is selected
+  useEffect(() => {
+    applyFilters();
+  }, [data, activeFilters]);
 
   return (
     <div>
@@ -95,20 +140,19 @@ const Cars = () => {
             <li>
               <BrandFilter
                 allBrands={(data as any[]).map((obj) => obj.brand)}
-                allCars={cars}
-                setCars={setCars}
-                data={data}
-                c
+                setActiveFilters={setActiveFilters}
               />
             </li>
             <li>
               <CarTypeFilter
                 carTypes={(data as any[]).map((obj) => obj.car_type)}
+                setActiveFilters={setActiveFilters}
               />
             </li>
             <li>
               <FuelTypeFilter
                 fuelTypes={(data as any[]).map((obj) => obj.fuel_type)}
+                setActiveFilters={setActiveFilters}
               />
             </li>
           </ul>
@@ -133,7 +177,7 @@ const Cars = () => {
               ></CarCard>
             ))}
         </div>
-        
+
         {/*--------------------------------PAGINATION-------------------------------- */}
         <div className="col-span-3 place-items-center">
           <CarsPagination

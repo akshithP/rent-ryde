@@ -10,7 +10,10 @@ import {
 } from "@chakra-ui/react";
 import { IoIosArrowDown as DropDown } from "react-icons/io";
 
-const FuelTypeFilter = ({ fuelTypes }: any) => {
+const FuelTypeFilter = ({
+  fuelTypes,
+  setActiveFilters,
+}: any) => {
   // Ensuring the filter options are unique and sorted beforehand
   const uniqueTypes = [...new Set(fuelTypes)] as string[];
   uniqueTypes.sort();
@@ -19,7 +22,10 @@ const FuelTypeFilter = ({ fuelTypes }: any) => {
   const [selectedTypes, setSelectedTypes] = useState<string | string[]>([]);
 
   const handleTypeSelectionChange = (selectedValues: string | string[]) => {
-    setSelectedTypes(selectedValues);
+    setActiveFilters((prevFilters: any) => ({
+      ...prevFilters,
+      ["fuel_types"]: selectedValues,
+    }));
   };
 
   return (
