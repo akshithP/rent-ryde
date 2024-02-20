@@ -54,6 +54,21 @@ const Cars = () => {
     totalPages = Math.ceil(cars.length / cardsPerPage);
   }, [cars, currentPage]);
 
+  // Filter menus
+  // All filter selected values
+  const [selectedFilters, setSelectedFilters] = useState<string | string[]>([]);
+
+  // Run the filter function everytime new brand is selected
+  useEffect(() => {
+    const filteredCars = data.filter(
+      (car: any) =>
+        selectedFilters.length == 0 ||
+        selectedFilters.includes(car.brand) ||
+        selectedFilters.includes(car.car_type)
+    );
+    setCars(filteredCars);
+  }, [data, selectedFilters, setCars]);
+
   return (
     <div>
       {/*---------------------------------------------MAIN CONTAINER----------------------------------------- */}
@@ -98,12 +113,18 @@ const Cars = () => {
                 allCars={cars}
                 setCars={setCars}
                 data={data}
-                c
+                selectedFilters={selectedFilters}
+                setSelectedFilters={setSelectedFilters}
               />
             </li>
             <li>
               <CarTypeFilter
                 carTypes={(data as any[]).map((obj) => obj.car_type)}
+                allCars={cars}
+                setCars={setCars}
+                data={data}
+                selectedFilters={selectedFilters}
+                setSelectedFilters={setSelectedFilters}
               />
             </li>
             <li>
@@ -133,7 +154,7 @@ const Cars = () => {
               ></CarCard>
             ))}
         </div>
-        
+
         {/*--------------------------------PAGINATION-------------------------------- */}
         <div className="col-span-3 place-items-center">
           <CarsPagination
