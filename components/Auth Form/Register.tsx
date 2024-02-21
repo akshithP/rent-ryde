@@ -37,6 +37,7 @@ const Register = ({ switchToLogin }: any) => {
           <input
             className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
             type="email"
+            placeholder="example@example.com"
           ></input>
         </div>
 
@@ -46,6 +47,7 @@ const Register = ({ switchToLogin }: any) => {
           <input
             className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
             type="password"
+            placeholder="********"
           ></input>
         </div>
 
@@ -55,6 +57,7 @@ const Register = ({ switchToLogin }: any) => {
           <input
             className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
             type="password"
+            placeholder="********"
           ></input>
         </div>
 

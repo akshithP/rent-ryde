@@ -5,6 +5,7 @@ import CarLogo from "../../public/icons/car-logo.svg";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 
 const Login = ({ switchToRegiser }: any) => {
+    // States to manage the email and password
   return (
     <div>
       <div className="grid grid-col-1 p-4 gap-4 text-textPrimary">
@@ -36,6 +37,7 @@ const Login = ({ switchToRegiser }: any) => {
           <h1>Email ID</h1>
           <input
             className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+            placeholder="example@example.com"
             type="email"
           ></input>
         </div>
@@ -46,6 +48,7 @@ const Login = ({ switchToRegiser }: any) => {
           <input
             className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
             type="password"
+            placeholder="********"
           ></input>
         </div>
 
