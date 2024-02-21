@@ -4,7 +4,7 @@ import Image from "next/image";
 import CarLogo from "../../public/icons/car-logo.svg";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 
-const Register = () => {
+const Register = ({ switchToLogin }: any) => {
   return (
     <div>
       <div className="grid grid-col-1 p-4 gap-4 text-textPrimary">
@@ -88,7 +88,12 @@ const Register = () => {
         {/*-------------------------------GOOGLE SIGN IN BUTTON------------------------------- */}
         <div className="flex items-center justify-center gap-1 font-normal">
           <span>Already have an account? </span>
-          <span className="text-blue-400 underline">Login Now</span>
+          <span
+            className="text-blue-400 underline hover:cursor-pointer hover:text-blue-200"
+            onClick={switchToLogin}
+          >
+            Login Now
+          </span>
         </div>
       </div>
     </div>
