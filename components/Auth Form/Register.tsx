@@ -1,16 +1,18 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import CarLogo from "../../public/icons/car-logo.svg";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { passwordStrength } from "check-password-strength";
+import PasswordStrength from "./PasswordStrength";
 
 // Form schema using zod
 const FormSchema = z
   .object({
-    email: z.string().email("Please enter a valid email address"),
+    email: z.string().email("Please enter a valid email address🙏"),
 
     password: z
       .string()
@@ -23,8 +25,8 @@ const FormSchema = z
       .max(50, "Password must less than 50 characters"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Both passwords do not match!",
-    path: ["password", "confirmPassword"],
+    message: "Both passwords do not match☹️!",
+    path: ["confirmPassword"],
   });
 
 const Register = ({ switchToLogin }: any) => {
@@ -32,10 +34,19 @@ const Register = ({ switchToLogin }: any) => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
+
+  // State to store the password strength returned by the
+  const [passStrength, setPassStrength] = useState(0);
+
+  // Run use effect everytime password changes
+  useEffect(() => {
+    setPassStrength(passwordStrength(watch().password).id);
+  }, [watch().password]);
 
   // Save user after registration
   const saveUser: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
@@ -96,6 +107,7 @@ const Register = ({ switchToLogin }: any) => {
           {errors.password && (
             <p className="text-red-500">{errors.password.message}</p>
           )}
+          <PasswordStrength passStrength={passStrength} />
         </div>
 
         {/*----------------------------------CONFIRM PASSWORD--------------------------------- */}
