@@ -3,11 +3,50 @@ import React from "react";
 import Image from "next/image";
 import CarLogo from "../../public/icons/car-logo.svg";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
+import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+// Form schema using zod
+const FormSchema = z
+  .object({
+    email: z.string().email("Please enter a valid email address"),
+
+    password: z
+      .string()
+      .min(6, "Password must be at least 6 characters")
+      .max(50, "Password must less than 50 characters"),
+
+    confirmPassword: z
+      .string()
+      .min(6, "Password must be at least 6 characters")
+      .max(50, "Password must less than 50 characters"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Both passwords do not match!",
+    path: ["password", "confirmPassword"],
+  });
 
 const Register = ({ switchToLogin }: any) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  });
+
+  // Save user after registration
+  const saveUser: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
+    console.log(data);
+  };
   return (
     <div>
-      <div className="grid grid-col-1 p-4 gap-4 text-textPrimary">
+      <form
+        onSubmit={handleSubmit(saveUser)}
+        className="grid grid-col-1 p-4 gap-4 text-textPrimary"
+      >
         {/*----------------------------------LOGO CONTAINER------------------------------------ */}
         <div
           id="LogoContainer"
@@ -35,36 +74,51 @@ const Register = ({ switchToLogin }: any) => {
         <div id="email" className="flex flex-col w-full">
           <h1>Email ID</h1>
           <input
+            {...register("email")}
             className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
             type="email"
             placeholder="example@example.com"
           ></input>
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
         </div>
 
         {/*----------------------------------PASSWORD--------------------------------- */}
         <div id="password" className="flex flex-col w-full">
           <h1>Password</h1>
           <input
+            {...register("password")}
             className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
             type="password"
             placeholder="********"
           ></input>
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
         </div>
 
         {/*----------------------------------CONFIRM PASSWORD--------------------------------- */}
         <div id="password" className="flex flex-col w-full">
           <h1>Confirm Password</h1>
           <input
+            {...register("confirmPassword")}
             className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
             type="password"
             placeholder="********"
           ></input>
+          {errors.confirmPassword && (
+            <p className="text-red-500">{errors.confirmPassword.message}</p>
+          )}
         </div>
 
-        {/*-------------------------------SIGN IN BUTTON------------------------------- */}
-        <div id="sign-in" className="flex flex-col w-full">
-          <button className="bg-primary rounded-lg py-2 text-secondary2 font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors">
-            Sign in
+        {/*-------------------------------SUBMIT BUTTON------------------------------- */}
+        <div id="Submit" className="flex flex-col w-full">
+          <button
+            type="submit"
+            className="bg-primary rounded-lg py-2 text-secondary2 font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
+          >
+            Submit
           </button>
         </div>
 
@@ -98,7 +152,7 @@ const Register = ({ switchToLogin }: any) => {
             Login Now
           </span>
         </div>
-      </div>
+      </form>
     </div>
   );
 };
