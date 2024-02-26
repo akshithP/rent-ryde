@@ -1,4 +1,6 @@
 import nodemailer from "nodemailer";
+import Handlebars from "handlebars";
+import { activationTemplate } from "./emailTemplates/activation";
 
 // Function to trigger the email notification to user
 export async function sendMail({
@@ -42,4 +44,14 @@ export async function sendMail({
   } catch (e) {
     console.log(e);
   }
+}
+
+// Handle bars is a tool for activating VARIABLES in HTML TEMPLATE
+export function compileActivationTemplate(name: string, url: string){
+    const template = Handlebars.compile(activationTemplate);
+    const htmlBody = template({
+        name, url,
+    })
+
+    return htmlBody
 }

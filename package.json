@@ -23,6 +23,7 @@
     "check-password-strength": "^2.0.7",
     "date-fns": "^3.3.1",
     "framer-motion": "^11.0.3",
+    "handlebars": "^4.7.8",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.0",
     "next": "14.0.4",
