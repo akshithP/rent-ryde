@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import CarLogo from "../public/icons/car-logo.svg";
 import { Links } from "@/types";
 import { IoMenu } from "react-icons/io5";
+import LoginButton from "./Auth Form/LoginButton";
 
 // List containing all the link objects
 const linksList: Links[] = [
@@ -80,6 +81,9 @@ const NavBar = () => {
               </li>
             ))}
           </ul>
+          <div id="SignInbutton">
+            <LoginButton />
+          </div>
         </nav>
       </div>
     </header>
