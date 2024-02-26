@@ -16,7 +16,7 @@ export async function sendMail({
   const { SMPT_EMAIL, SMPT_EMAIL_CODE } = process.env;
   const { SMPT_USER, SMPT_USER_CODE } = process.env;
 
-  // create transport
+  //create transport
   //   const transport = nodemailer.createTransport({
   //     service: "gmail",
   //     auth: {
@@ -47,11 +47,12 @@ export async function sendMail({
 }
 
 // Handle bars is a tool for activating VARIABLES in HTML TEMPLATE
-export function compileActivationTemplate(name: string, url: string){
-    const template = Handlebars.compile(activationTemplate);
-    const htmlBody = template({
-        name, url,
-    })
+export function compileActivationTemplate(name: string, url: string) {
+  const template = Handlebars.compile(activationTemplate);
+  const htmlBody = template({
+    name,
+    url,
+  });
 
-    return htmlBody
+  return htmlBody;
 }
