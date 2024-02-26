@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 
 const LoginButton = () => {
@@ -21,14 +21,14 @@ const LoginButton = () => {
         </>
       ) : (
         <>
-          <Link
-            href={"/api/auth/signin"}
+          <button
+            onClick={() => signIn()}
             className="bg-black text-textPrimary rounded-lg text-lg font-semibold hover:bg-primary2 px-3 py-1 transition-colors"
           >
             Sign in
-          </Link>
+          </button>
           <Link
-            href={"/auth"}
+            href={"/auth/signup"}
             className="bg-black text-textPrimary rounded-lg text-lg font-semibold hover:bg-primary2 px-3 py-1 transition-colors"
           >
             Sign up

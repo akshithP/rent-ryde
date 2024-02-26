@@ -4,8 +4,13 @@ import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import * as bcrypt from "bcrypt";
 import NextAuth from "next-auth/next";
+import { User } from "@prisma/client";
 
 export const authOptions: AuthOptions = {
+  // Specifying the login page
+  pages: {
+    signIn: "/auth/signin",
+  },
   // Ways to authenticating user like with credentials, google provider etc
   providers: [
     CredentialsProvider({
@@ -59,9 +64,22 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+
+  callbacks: {
+    // First time user is signed in, user obj is available. But everytime useSession is called/used user obj is undefined. Need to put user into token, this way user obj is not undefined
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user as User;
+      }
+      return token;
+    },
+    async session({ token, session }) {
+      session.user = token.user;
+      return session;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
 
-export {handler as GET, handler as POST}
-
+export { handler as GET, handler as POST };
