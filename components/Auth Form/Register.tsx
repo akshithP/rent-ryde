@@ -8,10 +8,23 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { passwordStrength } from "check-password-strength";
 import PasswordStrength from "./PasswordStrength";
+import { registerUser } from "@/app/lib/actions/authActions";
 
 // Form schema using zod
 const FormSchema = z
   .object({
+    firstName: z
+      .string()
+      .min(2, "First name must be at least 2 characters") // Corrected the error message
+      .max(50, "First name must be less than 50 characters")
+      .regex(new RegExp("^[a-zA-Z]+$"), "No special characters are allowed."), // Correct regex usage
+
+    lastName: z
+      .string()
+      .min(2, "Last name must be at least 2 characters") // Corrected the field name in the error message
+      .max(50, "Last name must be less than 50 characters")
+      .regex(new RegExp("^[a-zA-Z]+$"), "No special characters are allowed."), // Correct regex usage
+
     email: z.string().email("Please enter a valid email address🙏"),
 
     password: z
@@ -50,7 +63,13 @@ const Register = ({ switchToLogin }: any) => {
 
   // Save user after registration
   const saveUser: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
-    console.log(data);
+    const { confirmPassword, ...user } = data;
+    try {
+      const result = await registerUser(user);
+      alert("Your account has been registered!");
+    } catch {
+      alert("Could not register");
+    }
   };
   return (
     <div>
@@ -79,6 +98,34 @@ const Register = ({ switchToLogin }: any) => {
           <h1 className="text-textPrimary md:text-2xl text-xl font-semibold">
             Register
           </h1>
+        </div>
+
+        {/*----------------------------------FIRST NAME--------------------------------- */}
+        <div id="firstName" className="flex flex-col w-full">
+          <h1>First Name</h1>
+          <input
+            {...register("firstName")}
+            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+            type="text"
+            placeholder="John"
+          ></input>
+          {errors.firstName && (
+            <p className="text-red-500">{errors.firstName.message}</p>
+          )}
+        </div>
+
+        {/*----------------------------------LAST NAME--------------------------------- */}
+        <div id="lastName" className="flex flex-col w-full">
+          <h1>Last Name</h1>
+          <input
+            {...register("lastName")}
+            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+            type="text"
+            placeholder="Doe"
+          ></input>
+          {errors.lastName && (
+            <p className="text-red-500">{errors.lastName.message}</p>
+          )}
         </div>
 
         {/*----------------------------------EMAIL--------------------------------- */}
