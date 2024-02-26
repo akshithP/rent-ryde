@@ -12,13 +12,22 @@ export async function sendMail({
 }) {
   // Extract the senders email & pass
   const { SMPT_EMAIL, SMPT_EMAIL_CODE } = process.env;
+  const { SMPT_USER, SMPT_USER_CODE } = process.env;
 
   // create transport
-  const transport = nodemailer.createTransport({
-    service: "gmail",
+  //   const transport = nodemailer.createTransport({
+  //     service: "gmail",
+  //     auth: {
+  //       user: SMPT_EMAIL,
+  //       pass: SMPT_EMAIL_CODE,
+  //     },
+  //   });
+  var transport = nodemailer.createTransport({
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
     auth: {
-      user: SMPT_EMAIL,
-      pass: SMPT_EMAIL_CODE,
+      user: SMPT_USER,
+      pass: SMPT_USER_CODE,
     },
   });
 
