@@ -152,7 +152,16 @@ const Login = (props: Props) => {
         <div className="flex items-center justify-center gap-1 font-normal">
           <Link href={"/auth/signup"}>
             <span className="hover:underline hover:text-blue-200">
-              Don&apos;t have an account?{" "}
+              Don&apos;t have an account?
+            </span>
+          </Link>
+        </div>
+
+        {/*-------------------------------CONTINUE AS GUEST BUTTON------------------------------- */}
+        <div className="flex items-center justify-center gap-1 font-normal">
+          <Link href={"/"}>
+            <span className="hover:underline hover:text-blue-200">
+              Continue as Guest
             </span>
           </Link>
         </div>

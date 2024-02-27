@@ -10,6 +10,7 @@ export const authOptions: AuthOptions = {
   // Specifying the login page
   pages: {
     signIn: "/auth/signin",
+    // signOut: "/",
   },
   // Ways to authenticating user like with credentials, google provider etc
   providers: [

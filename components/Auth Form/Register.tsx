@@ -9,6 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { passwordStrength } from "check-password-strength";
 import PasswordStrength from "./PasswordStrength";
 import { registerUser } from "@/app/lib/actions/authActions";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // Form schema using zod
 const FormSchema = z
@@ -48,10 +50,13 @@ const Register = ({ switchToLogin }: any) => {
     handleSubmit,
     reset,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
+
+  // Use router to redirect the user to main page after successful login
+  const router = useRouter();
 
   // State to store the password strength returned by the
   const [passStrength, setPassStrength] = useState(0);
@@ -70,149 +75,147 @@ const Register = ({ switchToLogin }: any) => {
     } catch {
       alert("Could not register");
     }
+
+    // After registering successfully, redirect user to sign in page
+    router.push("/auth/signin");
   };
   return (
-    <div>
-      <form
-        onSubmit={handleSubmit(saveUser)}
-        className="grid grid-col-1 p-4 gap-4 text-textPrimary"
+    <form
+      onSubmit={handleSubmit(saveUser)}
+      className="grid grid-col-1 p-4 gap-4 text-textPrimary"
+    >
+      {/*----------------------------------LOGO CONTAINER------------------------------------ */}
+      <div
+        id="LogoContainer"
+        className="flex gap-2 items-center justify-center"
       >
-        {/*----------------------------------LOGO CONTAINER------------------------------------ */}
-        <div
-          id="LogoContainer"
-          className="flex gap-2 items-center justify-center"
+        <Image width={34} height={26} src={CarLogo} alt="Rent Ryde Car Logo" />
+        <h1 className="text-primary font-extrabold text-2xl font-plusJakartaSans">
+          RENT RYDE
+        </h1>
+      </div>
+
+      {/*----------------------------------LOGO TITLE------------------------------------ */}
+      <div id="LoginTitle">
+        <h1 className="text-textPrimary md:text-2xl text-xl font-semibold">
+          Register
+        </h1>
+      </div>
+
+      {/*----------------------------------FIRST NAME--------------------------------- */}
+      <div id="firstName" className="flex flex-col w-full">
+        <h1>First Name</h1>
+        <input
+          {...register("firstName")}
+          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+          type="text"
+          placeholder="John"
+        ></input>
+        {errors.firstName && (
+          <p className="text-red-500">{errors.firstName.message}</p>
+        )}
+      </div>
+
+      {/*----------------------------------LAST NAME--------------------------------- */}
+      <div id="lastName" className="flex flex-col w-full">
+        <h1>Last Name</h1>
+        <input
+          {...register("lastName")}
+          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+          type="text"
+          placeholder="Doe"
+        ></input>
+        {errors.lastName && (
+          <p className="text-red-500">{errors.lastName.message}</p>
+        )}
+      </div>
+
+      {/*----------------------------------EMAIL--------------------------------- */}
+      <div id="email" className="flex flex-col w-full">
+        <h1>Email ID</h1>
+        <input
+          {...register("email")}
+          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+          type="email"
+          placeholder="example@example.com"
+        ></input>
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+      </div>
+
+      {/*----------------------------------PASSWORD--------------------------------- */}
+      <div id="password" className="flex flex-col w-full">
+        <h1>Password</h1>
+        <input
+          {...register("password")}
+          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+          type="password"
+          placeholder="********"
+        ></input>
+        {errors.password && (
+          <p className="text-red-500">{errors.password.message}</p>
+        )}
+        <PasswordStrength passStrength={passStrength} />
+      </div>
+
+      {/*----------------------------------CONFIRM PASSWORD--------------------------------- */}
+      <div id="password" className="flex flex-col w-full">
+        <h1>Confirm Password</h1>
+        <input
+          {...register("confirmPassword")}
+          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+          type="password"
+          placeholder="********"
+        ></input>
+        {errors.confirmPassword && (
+          <p className="text-red-500">{errors.confirmPassword.message}</p>
+        )}
+      </div>
+
+      {/*-------------------------------SUBMIT BUTTON------------------------------- */}
+      <div id="Submit" className="flex flex-col w-full">
+        <button
+          type="submit"
+          className="bg-primary rounded-lg py-2 text-secondary2 font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
         >
-          <Image
-            width={34}
-            height={26}
-            src={CarLogo}
-            alt="Rent Ryde Car Logo"
-          />
-          <h1 className="text-primary font-extrabold text-2xl font-plusJakartaSans">
-            RENT RYDE
-          </h1>
-        </div>
+          {isSubmitting ? "Registering..." : "Submit"}
+        </button>
+      </div>
 
-        {/*----------------------------------LOGO TITLE------------------------------------ */}
-        <div id="LoginTitle">
-          <h1 className="text-textPrimary md:text-2xl text-xl font-semibold">
-            Register
-          </h1>
-        </div>
+      {/*-------------------------------OR DIVIDED------------------------------- */}
+      <div id="or-divider" className="flex items-center justify-center w-full">
+        <div className="flex-grow border-t border-borderCol"></div>
+        <span className="flex-shrink mx-4 text-borderCol font-medium">OR</span>
+        <div className="flex-grow border-t border-borderCol"></div>
+      </div>
 
-        {/*----------------------------------FIRST NAME--------------------------------- */}
-        <div id="firstName" className="flex flex-col w-full">
-          <h1>First Name</h1>
-          <input
-            {...register("firstName")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            type="text"
-            placeholder="John"
-          ></input>
-          {errors.firstName && (
-            <p className="text-red-500">{errors.firstName.message}</p>
-          )}
-        </div>
+      {/*-------------------------------GOOGLE SIGN IN BUTTON------------------------------- */}
+      <div id="sign-in" className="flex w-full">
+        <button className="flex w-full gap-2 items-center px-2 justify-center bg-black rounded-lg py-2 text-textPrumary font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors">
+          <GoogleIcon size={20} />
+          <h1>Sign in with Google</h1>
+        </button>
+      </div>
 
-        {/*----------------------------------LAST NAME--------------------------------- */}
-        <div id="lastName" className="flex flex-col w-full">
-          <h1>Last Name</h1>
-          <input
-            {...register("lastName")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            type="text"
-            placeholder="Doe"
-          ></input>
-          {errors.lastName && (
-            <p className="text-red-500">{errors.lastName.message}</p>
-          )}
-        </div>
-
-        {/*----------------------------------EMAIL--------------------------------- */}
-        <div id="email" className="flex flex-col w-full">
-          <h1>Email ID</h1>
-          <input
-            {...register("email")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            type="email"
-            placeholder="example@example.com"
-          ></input>
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-
-        {/*----------------------------------PASSWORD--------------------------------- */}
-        <div id="password" className="flex flex-col w-full">
-          <h1>Password</h1>
-          <input
-            {...register("password")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            type="password"
-            placeholder="********"
-          ></input>
-          {errors.password && (
-            <p className="text-red-500">{errors.password.message}</p>
-          )}
-          <PasswordStrength passStrength={passStrength} />
-        </div>
-
-        {/*----------------------------------CONFIRM PASSWORD--------------------------------- */}
-        <div id="password" className="flex flex-col w-full">
-          <h1>Confirm Password</h1>
-          <input
-            {...register("confirmPassword")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            type="password"
-            placeholder="********"
-          ></input>
-          {errors.confirmPassword && (
-            <p className="text-red-500">{errors.confirmPassword.message}</p>
-          )}
-        </div>
-
-        {/*-------------------------------SUBMIT BUTTON------------------------------- */}
-        <div id="Submit" className="flex flex-col w-full">
-          <button
-            type="submit"
-            className="bg-primary rounded-lg py-2 text-secondary2 font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
-          >
-            Submit
-          </button>
-        </div>
-
-        {/*-------------------------------OR DIVIDED------------------------------- */}
-        <div
-          id="or-divider"
-          className="flex items-center justify-center w-full"
+      {/*-------------------------------ALREADY ACCOUNT BUTTON------------------------------- */}
+      <div className="flex items-center justify-center gap-1 font-normal">
+        <span>Already have an account? </span>
+        <Link
+          href={"/auth/signin"}
+          className="text-blue-400 underline hover:cursor-pointer hover:text-blue-200"
         >
-          <div className="flex-grow border-t border-borderCol"></div>
-          <span className="flex-shrink mx-4 text-borderCol font-medium">
-            OR
-          </span>
-          <div className="flex-grow border-t border-borderCol"></div>
-        </div>
+          Login Now
+        </Link>
+      </div>
 
-        {/*-------------------------------GOOGLE SIGN IN BUTTON------------------------------- */}
-        <div id="sign-in" className="flex w-full">
-          <button className="flex w-full gap-2 items-center px-2 justify-center bg-black rounded-lg py-2 text-textPrumary font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors">
-            <GoogleIcon size={20} />
-            <h1>Sign in with Google</h1>
-          </button>
-        </div>
-
-        {/*-------------------------------GOOGLE SIGN IN BUTTON------------------------------- */}
-        <div className="flex items-center justify-center gap-1 font-normal">
-          <span>Already have an account? </span>
-          <span
-            className="text-blue-400 underline hover:cursor-pointer hover:text-blue-200"
-            onClick={switchToLogin}
-          >
-            Login Now
+      {/*-------------------------------CONTINUE AS GUEST BUTTON------------------------------- */}
+      <div className="flex items-center justify-center gap-1 font-normal ">
+        <Link href={"/"}>
+          <span className="hover:underline hover:text-blue-200">
+            Continue as Guest
           </span>
-        </div>
-      </form>
-    </div>
+        </Link>
+      </div>
+    </form>
   );
 };
 

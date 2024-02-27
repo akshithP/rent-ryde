@@ -6,12 +6,10 @@ import Link from "next/link";
 const LoginButton = () => {
   const { data: session } = useSession();
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex md:flex-row flex-col md:items-center items-start px-5 py-2 gap-2">
       {session && session.user ? (
         <>
-          <p className="text-textPrimary text-base">
-            Hello {session.user.firstName}!
-          </p>
+          <p className="text-red-400 text-lg font-semibold">Hello {session.user.firstName}!</p>
           <Link
             href={"/api/auth/signout"}
             className="bg-black text-textPrimary rounded-lg text-lg font-semibold hover:bg-primary2 px-3 py-1 transition-colors"

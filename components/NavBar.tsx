@@ -42,7 +42,7 @@ const NavBar = () => {
         className="flex items-center justify-between  lg:max-w-7xl lg:mx-auto max-w-full px-8 flex-wrap w-full"
       >
         {/* Section for the logo icon and text */}
-        <Link href="/" className="flex gap-2 mt-2 ">
+        <Link href="/" className="flex items-center gap-2 mt-2 ">
           <Image
             width={38}
             height={30}
