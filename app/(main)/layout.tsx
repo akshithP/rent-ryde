@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { plusJakartaSans } from "@/fonts";
-import "./globals.css";
+import "../globals.css";
 import NavBar from "@/components/NavBar";
-import { ChakraProvider } from "@chakra-ui/react";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -18,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${plusJakartaSans.className} bg-secondary`}>
-        <NavBar />
-        <Providers>{children}</Providers>
+        <Providers>
+          <NavBar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

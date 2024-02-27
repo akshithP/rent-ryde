@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -13,19 +13,33 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.18",
+    "@hookform/resolvers": "^3.3.4",
     "@mui/material": "^5.15.10",
+    "@prisma/client": "^5.10.2",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/nodemailer": "^6.4.14",
     "antd": "^5.13.3",
+    "bcrypt": "^5.1.1",
+    "check-password-strength": "^2.0.7",
     "date-fns": "^3.3.1",
     "framer-motion": "^11.0.3",
+    "handlebars": "^4.7.8",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.0",
     "next": "14.0.4",
+    "next-auth": "^4.24.6",
+    "nodemailer": "^6.9.10",
+    "prisma": "^5.10.2",
     "react": "^18.2.0",
     "react-date-range": "^2.0.0-alpha.4",
     "react-dom": "^18",
+    "react-hook-form": "^7.50.1",
     "react-icons": "^5.0.1",
     "react-paginate": "^8.2.0",
-    "react-responsive": "^9.0.2"
+    "react-responsive": "^9.0.2",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -36,6 +50,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
+    "prisma": "^5.10.2",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

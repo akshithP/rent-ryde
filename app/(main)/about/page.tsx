@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import CarAbout from "../../public/car-about.png";
+import CarAbout from "../../../public/car-about.png";
 import { FaCheckCircle } from "react-icons/fa";
-import Triangle from "../../public/triangle.png";
 
 const About = () => {
   return (

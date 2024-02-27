@@ -4,10 +4,10 @@ import Image from "next/image";
 import { BiSolidPhoneCall as Phone } from "react-icons/bi";
 import { IoMail as Mail } from "react-icons/io5";
 import { FaLocationDot as Pin } from "react-icons/fa6";
-import Facebook from "../../public/facebook.png";
-import Instagram from "../../public/instagram.png";
-import X from "../../public/twitter.png";
-import DualCircle from "../../public/dual-circles.png";
+import Facebook from "../../../public/facebook.png";
+import Instagram from "../../../public/instagram.png";
+import X from "../../../public/twitter.png";
+import DualCircle from "../../../public/dual-circles.png";
 import ContactForm from "@/components/ContactForm";
 
 const Contact = () => {
@@ -119,7 +119,7 @@ const Contact = () => {
 
         {/*----------------------------------------------RIGHT FORM-----------------------------------------------*/}
         <div className="col-span-3 bg-secondary2 rounded-lg z-0">
-          <ContactForm/>
+          <ContactForm />
         </div>
       </div>
     </div>

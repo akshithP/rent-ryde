@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import CarLogo from "../public/icons/car-logo.svg";
 import { Links } from "@/types";
 import { IoMenu } from "react-icons/io5";
+import LoginButton from "./Auth Form/LoginButton";
 
 // List containing all the link objects
 const linksList: Links[] = [
@@ -41,7 +42,7 @@ const NavBar = () => {
         className="flex items-center justify-between  lg:max-w-7xl lg:mx-auto max-w-full px-8 flex-wrap w-full"
       >
         {/* Section for the logo icon and text */}
-        <Link href="/" className="flex gap-2 mt-2 ">
+        <Link href="/" className="flex items-center gap-2 mt-2 ">
           <Image
             width={38}
             height={30}
@@ -80,6 +81,9 @@ const NavBar = () => {
               </li>
             ))}
           </ul>
+          <div id="SignInbutton">
+            <LoginButton />
+          </div>
         </nav>
       </div>
     </header>
