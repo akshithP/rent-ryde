@@ -7,11 +7,11 @@ import NextAuth from "next-auth/next";
 import { User } from "@prisma/client";
 
 export const authOptions: AuthOptions = {
-  // Specifying the login page
+  // Specifying the login page path 
   pages: {
     signIn: "/auth/signin",
-    // signOut: "/",
   },
+
   // Ways to authenticating user like with credentials, google provider etc
   providers: [
     CredentialsProvider({
@@ -29,41 +29,44 @@ export const authOptions: AuthOptions = {
           type: "password",
         },
       },
+
       // When user presses sign in, its packed as credential object and passed to this function
       async authorize(credentials) {
-        // Checking if the user exists by connecting and querying the prisma db
+
+        // Checking if the user exists by connecting and querying the prisma DB
         const user = await prisma.user.findUnique({
           where: {
             email: credentials?.username,
           },
         });
 
+        // If the user is not found
         if (!user) {
           throw new Error("Username or password is not correct");
         }
-
-        // NAive method, need to hash the password before saving to DB
-        // const isPasswordCorrect = credentials?.password === user.password;
 
         // If password isnt provided
         if (!credentials?.password) {
           throw new Error("Password is not provided");
         }
 
-        // Check if the password is correct
+        // Check if the entered password is correct 
         const isPasswordCorrect = await bcrypt.compare(
           credentials?.password,
           user.password
         );
 
+        // If password is not correct
         if (!isPasswordCorrect) {
           throw new Error("Password is not correct");
         }
-
+        
+        // If the user has not activated their email yet
         if (!user.emailVerified){
           throw new Error("Please verify your email to activate your account");
         }
 
+        // Destructuring the user object to not include password
         const { password, ...userWithoutPassword } = user;
         return userWithoutPassword;
       },

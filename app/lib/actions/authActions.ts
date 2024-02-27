@@ -8,13 +8,37 @@ import {
   sendMail,
 } from "../mail";
 import { signJwt, verifyJwt } from "../jwt";
-import { sub } from "date-fns";
 
-// Function that takes a user and insert it into the database
+/* 
+ * --------------------------------------------------------------------------------------------------------------------
+ * |                                             FUNCTION TYPE DECLARATION                                            |
+ * --------------------------------------------------------------------------------------------------------------------
+ */
+// Declared type of activateUser function
+type ActivateUserFunction = (
+  jwtUserId: string
+) => Promise<"userNotExist" | "alreadyActivated" | "success">;
+
+// Declared type of ResetPasswordFunction function
+type ResetPasswordFunction = (
+  jwtUserId: string,
+  confirmPassword: string
+) => Promise<"userNotFound" | "success">;
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * |                                             REGISTER USER FUNCTION                                               |
+ * --------------------------------------------------------------------------------------------------------------------
+ * Takes user object, removes the properties from user including, id, image etc.
+ * User parameters comes with user object from auth and also includes password. 
+ * 
+ * @param {Omit<User, "id" | "emailVerified" | "image" | "phone">} user  
+ * @return  
+ */
 export async function registerUser(
   user: Omit<User, "id" | "emailVerified" | "image" | "phone">
 ) {
-  // Remove the ID type
+  // Create the user with user object and password that is hashed
   const result = await prisma.user.create({
     data: {
       ...user,
@@ -22,13 +46,18 @@ export async function registerUser(
     },
   });
 
+  // Encrypt the user ID using JWT Token before compiling and sending the activation email
   const jwtUserId = signJwt({
     id: result.id, //id of the inserted user
   });
+
+  // Compile the activation email using the template, creating the URL and embedding the encrypted user ID
   const body = compileActivationTemplate(
     user.firstName,
     `${process.env.NEXTAUTH_URL}/auth/activation/${jwtUserId}`
   );
+
+  // Send the activation email 
   await sendMail({
     to: user.email,
     subject: "Activate Your Account - Rent Ryde",
@@ -37,33 +66,41 @@ export async function registerUser(
   return result;
 }
 
-// Returns a promise of a string
-type ActivateUserFunction = (
-  jwtUserId: string
-) => Promise<"userNotExist" | "alreadyActivated" | "success">;
 
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * |                                               ACTIVATE USER FUNCTION                                             |
+ * --------------------------------------------------------------------------------------------------------------------
+ * 
+ * Takes the jwtToken, comprising of user ID, and finds the user in the DB. And sets the user's emailVerified state
+ * to timestamp if the account isn't already activated.
+ * @param jwtUserId: string  
+ * @return  
+ */
 export const activateUser: ActivateUserFunction = async (jwtUserId: string) => {
-  // Need to extract the payload fromt JWT token and get the user ID
+
+  // Need to extract the payload(encrypted DATA) fromt JWT token and get the user ID
   const payload = verifyJwt(jwtUserId);
   const userId = payload?.id;
 
-  // Fin the user in the db
+  // Find the user in the prisma DB, user clicks activation and we received the encrypted userID
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
     },
   });
-  // If we cant find the user then doesnt exist
+
+  // If we can't find the user then return doesn't exist
   if (!user) {
     return "userNotExist";
   }
 
-  // If emailverified not null, means account already activated
+  // If emailVerified is already set to TIMESTAMP, it means account is already activated
   if (user.emailVerified) {
     return "alreadyActivated";
   }
 
-  // Otherwise we update the email verified state to the datetime account was activated
+  // Otherwise, we update the emailVerified state to current timestamp of account activation
   const accountVerified = await prisma.user.update({
     where: {
       id: user.id,
@@ -76,23 +113,33 @@ export const activateUser: ActivateUserFunction = async (jwtUserId: string) => {
   return "success";
 };
 
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * |                                         FORGOT PASSWORD LINK FUNCTION                                            |
+ * --------------------------------------------------------------------------------------------------------------------
+ * 
+ * Takes user's email and sends them reset password link
+ * @param {string} email  
+ * @return  
+ */
 export async function forgotPassword(email: string) {
-  // First find if such user exists
+
+  // Find the user in the prisma DB, to ensure user exists. 
   const user = await prisma.user.findUnique({
     where: {
       email: email,
     },
   });
 
-  // If they dont exist
+  // If user doesn't exist
   if (!user) {
     throw new Error("Sorry, There is no such user with that email!");
   }
 
-  // if they exist, send them email with reset password link
-  //First create reset password link
+  // Secure the user's ID using JWT Token
   const jwtUserId = signJwt({
-    id: user.id, //id of the user
+    id: user.id, 
   });
 
   // Compile the body of the forgot password email with reset password link
@@ -101,7 +148,7 @@ export async function forgotPassword(email: string) {
     `${process.env.NEXTAUTH_URL}/auth/resetPassword/${jwtUserId}`
   );
 
-  // Send the email
+  // Send the email to user
   const result = await sendMail({
     to: user.email,
     subject: "Reset Password - Rent Ryde",
@@ -111,15 +158,21 @@ export async function forgotPassword(email: string) {
   return result;
 }
 
-type ResetPasswordFunction = (
-  jwtUserId: string,
-  confirmPassword: string
-) => Promise<"userNotFound" | "success">;
-
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * |                                         FORGOT PASSWORD LINK FUNCTION                                            |
+ * --------------------------------------------------------------------------------------------------------------------
+ * 
+ * After user clicks reset password link, they are redirected to resetPassword page where they enter new password. 
+ * The password is hashed before updating the password in the database. 
+ * @param {string} email  
+ * @return  
+ */
 export const resetUserPassword: ResetPasswordFunction = async (
   jwtUserId,
   confirmPassword
 ) => {
+
   // Need to extract the payload fromt JWT token and get the user ID
   const payload = verifyJwt(jwtUserId);
 
@@ -129,17 +182,17 @@ export const resetUserPassword: ResetPasswordFunction = async (
   // Other wise extract ID
   const userId = payload?.id;
 
-  // Find the user in the db
+  // Find the user in the prisma DB
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
     },
   });
 
-  // iF USER DOESN;T EXIST
+  // if user is not found
   if (!user) return "userNotFound";
 
-  // If user
+  // If user exists, then update their password
   const updatedPassword = await prisma.user.update({
     where: {
       id: userId,
