@@ -117,14 +117,13 @@ const Login = (props: Props) => {
             {isSubmitting ? "Signing in..." : "Sign in"}
           </button>
         </div>
-
-        {/*----------------------------------PASSWORD--------------------------------- */}
-        <div id="forgot" className="flex flex-col w-full">
-          <Link
-            href={"/auth/forgotPassword"}
-            className="text-base text-blue-400 underline hover:text-blue-200"
-          >
-            Forgot your Password?
+        
+        {/*-------------------------------FORGOT PASSWORD BUTTON------------------------------- */}
+        <div className="flex items-center justify-center gap-1 font-normal">
+          <Link href={"/auth/forgotPassword"}>
+            <span className="hover:underline hover:text-blue-200">
+              Forgot your Password?
+            </span>
           </Link>
         </div>
 

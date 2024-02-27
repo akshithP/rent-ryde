@@ -1,6 +1,7 @@
 import nodemailer from "nodemailer";
 import Handlebars from "handlebars";
 import { activationTemplate } from "./emailTemplates/activation";
+import { forgotPasswordTemplate } from "./emailTemplates/forgotPassword";
 
 // Function to trigger the email notification to user
 export async function sendMail({
@@ -49,6 +50,17 @@ export async function sendMail({
 // Handle bars is a tool for activating VARIABLES in HTML TEMPLATE
 export function compileActivationTemplate(name: string, url: string) {
   const template = Handlebars.compile(activationTemplate);
+  const htmlBody = template({
+    name,
+    url,
+  });
+
+  return htmlBody;
+}
+
+// Email for 
+export function compileForgotPasswordTemplate(name: string, url: string) {
+  const template = Handlebars.compile(forgotPasswordTemplate);
   const htmlBody = template({
     name,
     url,
