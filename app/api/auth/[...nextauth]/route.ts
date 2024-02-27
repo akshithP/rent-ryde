@@ -6,7 +6,7 @@ import * as bcrypt from "bcrypt";
 import NextAuth from "next-auth/next";
 import { User } from "@prisma/client";
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   // Specifying the login page path
   pages: {
     signIn: "/auth/signin",
