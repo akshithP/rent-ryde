@@ -7,7 +7,7 @@ import NextAuth from "next-auth/next";
 import { User } from "@prisma/client";
 
 export const authOptions: AuthOptions = {
-  // Specifying the login page path 
+  // Specifying the login page path
   pages: {
     signIn: "/auth/signin",
   },
@@ -32,7 +32,6 @@ export const authOptions: AuthOptions = {
 
       // When user presses sign in, its packed as credential object and passed to this function
       async authorize(credentials) {
-
         // Checking if the user exists by connecting and querying the prisma DB
         const user = await prisma.user.findUnique({
           where: {
@@ -50,7 +49,7 @@ export const authOptions: AuthOptions = {
           throw new Error("Password is not provided");
         }
 
-        // Check if the entered password is correct 
+        // Check if the entered password is correct
         const isPasswordCorrect = await bcrypt.compare(
           credentials?.password,
           user.password
@@ -60,9 +59,9 @@ export const authOptions: AuthOptions = {
         if (!isPasswordCorrect) {
           throw new Error("Password is not correct");
         }
-        
+
         // If the user has not activated their email yet
-        if (!user.emailVerified){
+        if (!user.emailVerified) {
           throw new Error("Please verify your email to activate your account");
         }
 
