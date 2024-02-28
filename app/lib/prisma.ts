@@ -5,10 +5,10 @@ const globalForPrisma = global as unknown as {
   prisma: PrismaClient;
 };
 
-// Use existing global prisma instance or create a new one to avoid multiple instances.
+// Check if the 'prisma' property already exists on the global object to reuse it, or create new
 export const prisma = globalForPrisma.prisma || new PrismaClient();
 
-// In non-production, store PrismaClient instance globally to reuse across hot reloads.
+// reuse the existing global instance.
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
