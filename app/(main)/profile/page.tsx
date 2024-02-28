@@ -13,7 +13,7 @@ const Profile = async () => {
   const user = session?.user;
 
   // Protect profile page, check if user is inside otherwise back to login
-  if (!session || !session.user) redirect("/auth/signin");
+  // if (!session || !session.user) redirect("/auth/signin");
 
   return (
     <div className="p-3 grid grid-cols-1 gap-3 text-textPrimary text-xl font-medium">
