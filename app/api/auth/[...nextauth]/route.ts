@@ -17,8 +17,6 @@ const authOptions: AuthOptions = {
     strategy: "jwt",
   },
 
-  
-
   // Ways to authenticating user like with credentials, google provider etc
   providers: [
     CredentialsProvider({
@@ -94,8 +92,6 @@ const authOptions: AuthOptions = {
   },
 };
 
-export default authOptions;
-
 const handler = NextAuth(authOptions);
 
-export { handler as GET, handler as POST };
+export { handler as GET, handler as POST, authOptions };
