@@ -9,6 +9,7 @@ import { passwordStrength } from "check-password-strength";
 import PasswordStrength from "@/components/Auth Form/PasswordStrength";
 import { resetUserPassword } from "@/app/lib/actions/authActions";
 import { useRouter } from "next/navigation";
+import { useToast } from "@chakra-ui/react";
 
 interface Props {
   params: {
@@ -57,15 +58,32 @@ const ResetPassword = ({ params }: Props) => {
   // Use router to redirect the user to main page after successful login
   const router = useRouter();
 
+  // Toast
+  const toast = useToast();
+
   // Hnalde on submit
   const submitReq: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
     try {
       const result = await resetUserPassword(params.jwt, data.confirmPassword);
       if (result === "success") {
-        alert("Your password has been reset");
+        toast({
+          title: "Success!",
+          description: "Your password has been reset",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "top",
+        });
       }
     } catch {
-      alert("Something went wrong");
+      toast({
+        title: "Error",
+        description: "Something went wrong",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
     }
 
     // After registering successfully, redirect user to sign in page

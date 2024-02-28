@@ -9,6 +9,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@chakra-ui/react";
 
 interface Props {
   callbackUrl?: string; //When user signs in successfully, redirect the user to callbackUrl
@@ -36,6 +37,9 @@ const Login = (props: Props) => {
     resolver: zodResolver(FormSchema),
   });
 
+  // Toast
+  const toast = useToast();
+
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
     const result = await signIn("credentials", {
       // Specify the provider which is credentials (defined in route.js)
@@ -44,9 +48,16 @@ const Login = (props: Props) => {
       password: data.password,
     });
 
-    // Alert if the user info entered are not valid
+    // Toast if the user info entered are not valid
     if (!result?.ok) {
-      alert(result?.error);
+      toast({
+        title: "Error",
+        description: `${result?.error}`,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
       return;
     }
 
@@ -117,7 +128,7 @@ const Login = (props: Props) => {
             {isSubmitting ? "Signing in..." : "Sign in"}
           </button>
         </div>
-        
+
         {/*-------------------------------FORGOT PASSWORD BUTTON------------------------------- */}
         <div className="flex items-center justify-center gap-1 font-normal">
           <Link href={"/auth/forgotPassword"}>

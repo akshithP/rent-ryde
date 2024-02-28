@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import CarLogo from "../../../public/icons/car-logo.svg";
 import { forgotPassword } from "@/app/lib/actions/authActions";
+import { useToast } from "@chakra-ui/react";
 
 // For form validation
 const FormSchema = z.object({
@@ -24,16 +25,31 @@ const ForgotPassword = () => {
     resolver: zodResolver(FormSchema),
   });
 
+  // Toast
+  const toast = useToast();
+
   // Handle form submission
   const submitReq: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
     try {
       const result = await forgotPassword(data.email);
-      alert(
-        "Email sent successfully! Please check your inbox to reset your password"
-      );
+      toast({
+        title: "Email sent!",
+        description: "Please check your email to reset your password",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
       reset(); //reset the form fields
     } catch (error) {
-      alert("Something went wrong");
+      toast({
+        title: "Error",
+        description: "Something went wrong!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
     }
   };
 

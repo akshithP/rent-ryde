@@ -11,6 +11,7 @@ import PasswordStrength from "./PasswordStrength";
 import { registerUser } from "@/app/lib/actions/authActions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useToast } from "@chakra-ui/react";
 
 // Form schema using zod
 const FormSchema = z
@@ -66,14 +67,31 @@ const Register = ({ switchToLogin }: any) => {
     setPassStrength(passwordStrength(watch().password).id);
   }, [watch().password]);
 
+  // Setup toast
+  const toast = useToast();
+
   // Save user after registration
   const saveUser: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
     const { confirmPassword, ...user } = data;
     try {
       const result = await registerUser(user);
-      alert("Your account has been registered!");
+      toast({
+        title: "Account Registered!",
+        description: 'Please check your email and activate your account!',
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
     } catch {
-      alert("Could not register");
+      toast({
+        title: "Error",
+        description: 'Something went wrong',
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
     }
 
     // After registering successfully, redirect user to sign in page
