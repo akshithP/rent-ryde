@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { plusJakartaSans } from "@/fonts";
 import "../globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Sign In",
@@ -14,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${plusJakartaSans.className}`}>{children}</body>
+      <body className={`${plusJakartaSans.className}`}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
