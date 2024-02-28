@@ -12,6 +12,13 @@ const authOptions: AuthOptions = {
     signIn: "/auth/signin",
   },
 
+  // Session of next auth is turned to JWT, saved as cookie, and we can access session of next auth using getServerSession
+  session: {
+    strategy: "jwt",
+  },
+
+  
+
   // Ways to authenticating user like with credentials, google provider etc
   providers: [
     CredentialsProvider({
@@ -86,6 +93,8 @@ const authOptions: AuthOptions = {
     },
   },
 };
+
+export default authOptions;
 
 const handler = NextAuth(authOptions);
 
