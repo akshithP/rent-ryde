@@ -151,12 +151,19 @@ const Login = (props: Props) => {
         </div>
 
         {/*-------------------------------GOOGLE SIGN IN BUTTON------------------------------- */}
-        {/* <div id="sign-in" className="flex w-full">
-          <button className="flex w-full gap-2 items-center px-2 justify-center bg-black rounded-lg py-2 text-textPrumary font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors">
+        <div id="sign-in-google" className="flex w-full">
+          <button
+            onClick={() =>
+              signIn("google", {
+                callbackUrl: props.callbackUrl ? props.callbackUrl : "/",
+              })
+            }
+            className="flex w-full gap-2 items-center px-2 justify-center bg-black rounded-lg py-2 text-textPrumary font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
+          >
             <GoogleIcon size={20} />
             <h1>Sign in with Google</h1>
           </button>
-        </div> */}
+        </div>
 
         {/*-------------------------------DONT HAVE ACCOUNT BUTTON------------------------------- */}
         <div className="flex items-center justify-center gap-1 font-normal">

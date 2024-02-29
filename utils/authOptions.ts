@@ -3,6 +3,7 @@ import prisma from "@/app/lib/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import * as bcrypt from "bcrypt";
 import { User } from "@prisma/client";
+import GoogleProvider from "next-auth/providers/google";
 
 export const authOptions: AuthOptions = {
   // Specifying the login page path
@@ -17,6 +18,10 @@ export const authOptions: AuthOptions = {
 
   // Ways to authenticating user like with credentials, google provider etc
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
     CredentialsProvider({
       name: "Credentials", // name of the credentials provider
 
