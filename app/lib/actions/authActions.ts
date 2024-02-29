@@ -9,7 +9,7 @@ import {
 } from "../mail";
 import { signJwt, verifyJwt } from "../jwt";
 
-/* 
+/*
  * --------------------------------------------------------------------------------------------------------------------
  * |                                             FUNCTION TYPE DECLARATION                                            |
  * --------------------------------------------------------------------------------------------------------------------
@@ -30,10 +30,10 @@ type ResetPasswordFunction = (
  * |                                             REGISTER USER FUNCTION                                               |
  * --------------------------------------------------------------------------------------------------------------------
  * Takes user object, removes the properties from user including, id, image etc.
- * User parameters comes with user object from auth and also includes password. 
- * 
- * @param {Omit<User, "id" | "emailVerified" | "image" | "phone">} user  
- * @return  
+ * User parameters comes with user object from auth and also includes password.
+ *
+ * @param {Omit<User, "id" | "emailVerified" | "image" | "phone">} user
+ * @return
  */
 export async function registerUser(
   user: Omit<User, "id" | "emailVerified" | "image" | "phone">
@@ -57,7 +57,7 @@ export async function registerUser(
     `${process.env.NEXTAUTH_URL}/auth/activation/${jwtUserId}`
   );
 
-  // Send the activation email 
+  // Send the activation email
   await sendMail({
     to: user.email,
     subject: "Activate Your Account - Rent Ryde",
@@ -66,19 +66,17 @@ export async function registerUser(
   return result;
 }
 
-
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * |                                               ACTIVATE USER FUNCTION                                             |
  * --------------------------------------------------------------------------------------------------------------------
- * 
+ *
  * Takes the jwtToken, comprising of user ID, and finds the user in the DB. And sets the user's emailVerified state
  * to timestamp if the account isn't already activated.
- * @param jwtUserId: string  
- * @return  
+ * @param jwtUserId: string
+ * @return
  */
 export const activateUser: ActivateUserFunction = async (jwtUserId: string) => {
-
   // Need to extract the payload(encrypted DATA) fromt JWT token and get the user ID
   const payload = verifyJwt(jwtUserId);
   const userId = payload?.id;
@@ -113,19 +111,17 @@ export const activateUser: ActivateUserFunction = async (jwtUserId: string) => {
   return "success";
 };
 
-
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * |                                         FORGOT PASSWORD LINK FUNCTION                                            |
  * --------------------------------------------------------------------------------------------------------------------
- * 
+ *
  * Takes user's email and sends them reset password link
- * @param {string} email  
- * @return  
+ * @param {string} email
+ * @return
  */
 export async function forgotPassword(email: string) {
-
-  // Find the user in the prisma DB, to ensure user exists. 
+  // Find the user in the prisma DB, to ensure user exists.
   const user = await prisma.user.findUnique({
     where: {
       email: email,
@@ -139,7 +135,7 @@ export async function forgotPassword(email: string) {
 
   // Secure the user's ID using JWT Token
   const jwtUserId = signJwt({
-    id: user.id, 
+    id: user.id,
   });
 
   // Compile the body of the forgot password email with reset password link
@@ -162,17 +158,16 @@ export async function forgotPassword(email: string) {
  * --------------------------------------------------------------------------------------------------------------------
  * |                                         FORGOT PASSWORD LINK FUNCTION                                            |
  * --------------------------------------------------------------------------------------------------------------------
- * 
- * After user clicks reset password link, they are redirected to resetPassword page where they enter new password. 
- * The password is hashed before updating the password in the database. 
- * @param {string} email  
- * @return  
+ *
+ * After user clicks reset password link, they are redirected to resetPassword page where they enter new password.
+ * The password is hashed before updating the password in the database.
+ * @param {string} email
+ * @return
  */
 export const resetUserPassword: ResetPasswordFunction = async (
   jwtUserId,
   confirmPassword
 ) => {
-
   // Need to extract the payload fromt JWT token and get the user ID
   const payload = verifyJwt(jwtUserId);
 
