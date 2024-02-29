@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import CarLogo from "../../public/icons/car-logo.svg";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
@@ -77,7 +78,7 @@ const Register = ({ switchToLogin }: any) => {
       const result = await registerUser(user);
       toast({
         title: "Account Registered!",
-        description: 'Please check your email and activate your account!',
+        description: "Please check your email and activate your account!",
         status: "success",
         duration: 5000,
         isClosable: true,
@@ -86,7 +87,7 @@ const Register = ({ switchToLogin }: any) => {
     } catch {
       toast({
         title: "Error",
-        description: 'Something went wrong',
+        description: "Something went wrong",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -98,107 +99,115 @@ const Register = ({ switchToLogin }: any) => {
     router.push("/auth/signin");
   };
   return (
-    <form
-      onSubmit={handleSubmit(saveUser)}
-      className="grid grid-col-1 p-4 gap-4 text-textPrimary"
-    >
-      {/*----------------------------------LOGO CONTAINER------------------------------------ */}
-      <div
-        id="LogoContainer"
-        className="flex gap-2 items-center justify-center"
+    <div className="grid grid-cols-1 p-4 gap-4 text-textPrimary">
+      <form
+        onSubmit={handleSubmit(saveUser)}
+        className="grid grid-col-1 gap-4 text-textPrimary"
       >
-        <Image width={34} height={26} src={CarLogo} alt="Rent Ryde Car Logo" />
-        <h1 className="text-primary font-extrabold text-2xl font-plusJakartaSans">
-          RENT RYDE
-        </h1>
-      </div>
-
-      {/*----------------------------------LOGO TITLE------------------------------------ */}
-      <div id="LoginTitle">
-        <h1 className="text-textPrimary md:text-2xl text-xl font-semibold">
-          Register
-        </h1>
-      </div>
-
-      {/*----------------------------------FIRST NAME--------------------------------- */}
-      <div id="firstName" className="flex flex-col w-full">
-        <h1>First Name</h1>
-        <input
-          {...register("firstName")}
-          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-          type="text"
-          placeholder="John"
-        ></input>
-        {errors.firstName && (
-          <p className="text-red-500">{errors.firstName.message}</p>
-        )}
-      </div>
-
-      {/*----------------------------------LAST NAME--------------------------------- */}
-      <div id="lastName" className="flex flex-col w-full">
-        <h1>Last Name</h1>
-        <input
-          {...register("lastName")}
-          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-          type="text"
-          placeholder="Doe"
-        ></input>
-        {errors.lastName && (
-          <p className="text-red-500">{errors.lastName.message}</p>
-        )}
-      </div>
-
-      {/*----------------------------------EMAIL--------------------------------- */}
-      <div id="email" className="flex flex-col w-full">
-        <h1>Email ID</h1>
-        <input
-          {...register("email")}
-          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-          type="email"
-          placeholder="example@example.com"
-        ></input>
-        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-      </div>
-
-      {/*----------------------------------PASSWORD--------------------------------- */}
-      <div id="password" className="flex flex-col w-full">
-        <h1>Password</h1>
-        <input
-          {...register("password")}
-          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-          type="password"
-          placeholder="********"
-        ></input>
-        {errors.password && (
-          <p className="text-red-500">{errors.password.message}</p>
-        )}
-        <PasswordStrength passStrength={passStrength} />
-      </div>
-
-      {/*----------------------------------CONFIRM PASSWORD--------------------------------- */}
-      <div id="password" className="flex flex-col w-full">
-        <h1>Confirm Password</h1>
-        <input
-          {...register("confirmPassword")}
-          className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-          type="password"
-          placeholder="********"
-        ></input>
-        {errors.confirmPassword && (
-          <p className="text-red-500">{errors.confirmPassword.message}</p>
-        )}
-      </div>
-
-      {/*-------------------------------SUBMIT BUTTON------------------------------- */}
-      <div id="Submit" className="flex flex-col w-full">
-        <button
-          type="submit"
-          className="bg-primary rounded-lg py-2 text-secondary2 font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
+        {/*----------------------------------LOGO CONTAINER------------------------------------ */}
+        <div
+          id="LogoContainer"
+          className="flex gap-2 items-center justify-center"
         >
-          {isSubmitting ? "Registering..." : "Submit"}
-        </button>
-      </div>
+          <Image
+            width={34}
+            height={26}
+            src={CarLogo}
+            alt="Rent Ryde Car Logo"
+          />
+          <h1 className="text-primary font-extrabold text-2xl font-plusJakartaSans">
+            RENT RYDE
+          </h1>
+        </div>
 
+        {/*----------------------------------LOGO TITLE------------------------------------ */}
+        <div id="LoginTitle">
+          <h1 className="text-textPrimary md:text-2xl text-xl font-semibold">
+            Register
+          </h1>
+        </div>
+
+        {/*----------------------------------FIRST NAME--------------------------------- */}
+        <div id="firstName" className="flex flex-col w-full">
+          <h1>First Name</h1>
+          <input
+            {...register("firstName")}
+            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+            type="text"
+            placeholder="John"
+          ></input>
+          {errors.firstName && (
+            <p className="text-red-500">{errors.firstName.message}</p>
+          )}
+        </div>
+
+        {/*----------------------------------LAST NAME--------------------------------- */}
+        <div id="lastName" className="flex flex-col w-full">
+          <h1>Last Name</h1>
+          <input
+            {...register("lastName")}
+            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+            type="text"
+            placeholder="Doe"
+          ></input>
+          {errors.lastName && (
+            <p className="text-red-500">{errors.lastName.message}</p>
+          )}
+        </div>
+
+        {/*----------------------------------EMAIL--------------------------------- */}
+        <div id="email" className="flex flex-col w-full">
+          <h1>Email ID</h1>
+          <input
+            {...register("email")}
+            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+            type="email"
+            placeholder="example@example.com"
+          ></input>
+          {errors.email && (
+            <p className="text-red-500">{errors.email.message}</p>
+          )}
+        </div>
+
+        {/*----------------------------------PASSWORD--------------------------------- */}
+        <div id="password" className="flex flex-col w-full">
+          <h1>Password</h1>
+          <input
+            {...register("password")}
+            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+            type="password"
+            placeholder="********"
+          ></input>
+          {errors.password && (
+            <p className="text-red-500">{errors.password.message}</p>
+          )}
+          <PasswordStrength passStrength={passStrength} />
+        </div>
+
+        {/*----------------------------------CONFIRM PASSWORD--------------------------------- */}
+        <div id="password" className="flex flex-col w-full">
+          <h1>Confirm Password</h1>
+          <input
+            {...register("confirmPassword")}
+            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+            type="password"
+            placeholder="********"
+          ></input>
+          {errors.confirmPassword && (
+            <p className="text-red-500">{errors.confirmPassword.message}</p>
+          )}
+        </div>
+
+        {/*-------------------------------SUBMIT BUTTON------------------------------- */}
+        <div id="Submit" className="flex flex-col w-full">
+          <button
+            type="submit"
+            className="bg-primary rounded-lg py-2 text-secondary2 font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
+          >
+            {isSubmitting ? "Registering..." : "Submit"}
+          </button>
+        </div>
+      </form>
       {/*-------------------------------OR DIVIDED------------------------------- */}
       <div id="or-divider" className="flex items-center justify-center w-full">
         <div className="flex-grow border-t border-borderCol"></div>
@@ -207,12 +216,19 @@ const Register = ({ switchToLogin }: any) => {
       </div>
 
       {/*-------------------------------GOOGLE SIGN IN BUTTON------------------------------- */}
-      {/* <div id="sign-in" className="flex w-full">
-        <button className="flex w-full gap-2 items-center px-2 justify-center bg-black rounded-lg py-2 text-textPrumary font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors">
+      <div id="sign-in" className="flex w-full">
+        <button
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: "/",
+            })
+          }
+          className="flex w-full gap-2 items-center px-2 justify-center bg-black rounded-lg py-2 text-textPrumary font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
+        >
           <GoogleIcon size={20} />
           <h1>Sign in with Google</h1>
         </button>
-      </div> */}
+      </div>
 
       {/*-------------------------------ALREADY ACCOUNT BUTTON------------------------------- */}
       <div className="flex items-center justify-center gap-1 font-normal">
@@ -233,7 +249,7 @@ const Register = ({ switchToLogin }: any) => {
           </span>
         </Link>
       </div>
-    </form>
+    </div>
   );
 };
 

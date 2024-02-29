@@ -66,117 +66,125 @@ const Login = (props: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid grid-col-1 p-4 gap-4 text-textPrimary">
-        {/*----------------------------------LOGO CONTAINER------------------------------------ */}
-        <div
-          id="LogoContainer"
-          className="flex gap-2 items-center justify-center"
-        >
-          <Image
-            width={34}
-            height={26}
-            src={CarLogo}
-            alt="Rent Ryde Car Logo"
-          />
-          <h1 className="text-primary font-extrabold text-2xl font-plusJakartaSans">
-            RENT RYDE
-          </h1>
-        </div>
-
-        {/*----------------------------------LOGO TITLE------------------------------------ */}
-        <div id="LoginTitle">
-          <h1 className="text-textPrimary md:text-2xl text-xl font-semibold">
-            Login
-          </h1>
-        </div>
-
-        {/*----------------------------------EMAIL--------------------------------- */}
-        <div id="email" className="flex flex-col w-full">
-          <h1>Email ID</h1>
-          <input
-            {...register("email")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            placeholder="example@example.com"
-            type="email"
-          ></input>
-          {errors.email && (
-            <p className="text-red-500">{errors.email.message}</p>
-          )}
-        </div>
-
-        {/*----------------------------------PASSWORD--------------------------------- */}
-        <div id="password" className="flex flex-col w-full">
-          <h1>Password</h1>
-          <input
-            {...register("password")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            type="password"
-            placeholder="********"
-          ></input>
-          {errors.password && (
-            <p className="text-red-500">{errors.password.message}</p>
-          )}
-        </div>
-
-        {/*-------------------------------SIGN IN BUTTON------------------------------- */}
-        <div id="sign-in" className="flex flex-col w-full">
-          <button
-            type="submit"
-            className="bg-primary rounded-lg py-2 text-secondary2 font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
+    <div className="grid grid-cols-1 p-4 gap-4 text-textPrimary">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="grid grid-col-1 gap-4 text-textPrimary">
+          {/*----------------------------------LOGO CONTAINER------------------------------------ */}
+          <div
+            id="LogoContainer"
+            className="flex gap-2 items-center justify-center"
           >
-            {isSubmitting ? "Signing in..." : "Sign in"}
-          </button>
-        </div>
+            <Image
+              width={34}
+              height={26}
+              src={CarLogo}
+              alt="Rent Ryde Car Logo"
+            />
+            <h1 className="text-primary font-extrabold text-2xl font-plusJakartaSans">
+              RENT RYDE
+            </h1>
+          </div>
 
-        {/*-------------------------------FORGOT PASSWORD BUTTON------------------------------- */}
-        <div className="flex items-center justify-center gap-1 font-normal">
-          <Link href={"/auth/forgotPassword"}>
-            <span className="hover:underline hover:text-blue-200">
-              Forgot your Password?
+          {/*----------------------------------LOGO TITLE------------------------------------ */}
+          <div id="LoginTitle">
+            <h1 className="text-textPrimary md:text-2xl text-xl font-semibold">
+              Login
+            </h1>
+          </div>
+
+          {/*----------------------------------EMAIL--------------------------------- */}
+          <div id="email" className="flex flex-col w-full">
+            <h1>Email ID</h1>
+            <input
+              {...register("email")}
+              className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+              placeholder="example@example.com"
+              type="email"
+            ></input>
+            {errors.email && (
+              <p className="text-red-500">{errors.email.message}</p>
+            )}
+          </div>
+
+          {/*----------------------------------PASSWORD--------------------------------- */}
+          <div id="password" className="flex flex-col w-full">
+            <h1>Password</h1>
+            <input
+              {...register("password")}
+              className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
+              type="password"
+              placeholder="********"
+            ></input>
+            {errors.password && (
+              <p className="text-red-500">{errors.password.message}</p>
+            )}
+          </div>
+
+          {/*-------------------------------SIGN IN BUTTON------------------------------- */}
+          <div id="sign-in" className="flex flex-col w-full">
+            <button
+              type="submit"
+              className="bg-primary rounded-lg py-2 text-secondary2 font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
+            >
+              {isSubmitting ? "Signing in..." : "Sign in"}
+            </button>
+          </div>
+
+          {/*-------------------------------FORGOT PASSWORD BUTTON------------------------------- */}
+          <div className="flex items-center justify-center gap-1 font-normal">
+            <Link href={"/auth/forgotPassword"}>
+              <span className="hover:underline hover:text-blue-200">
+                Forgot your Password?
+              </span>
+            </Link>
+          </div>
+
+          {/*-------------------------------OR DIVIDED------------------------------- */}
+          <div
+            id="or-divider"
+            className="flex items-center justify-center w-full"
+          >
+            <div className="flex-grow border-t border-borderCol"></div>
+            <span className="flex-shrink mx-4 text-borderCol font-medium">
+              OR
             </span>
-          </Link>
+            <div className="flex-grow border-t border-borderCol"></div>
+          </div>
         </div>
-
-        {/*-------------------------------OR DIVIDED------------------------------- */}
-        <div
-          id="or-divider"
-          className="flex items-center justify-center w-full"
+      </form>
+      {/*-------------------------------GOOGLE SIGN IN BUTTON------------------------------- */}
+      <div id="sign-in-google" className="flex w-full">
+        <button
+          onClick={() =>
+            signIn("google", {
+              callbackUrl: props.callbackUrl ? props.callbackUrl : "/",
+            })
+          }
+          className="flex w-full gap-2 items-center px-2 justify-center bg-black rounded-lg py-2 text-textPrumary font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors"
         >
-          <div className="flex-grow border-t border-borderCol"></div>
-          <span className="flex-shrink mx-4 text-borderCol font-medium">
-            OR
-          </span>
-          <div className="flex-grow border-t border-borderCol"></div>
-        </div>
-
-        {/*-------------------------------GOOGLE SIGN IN BUTTON------------------------------- */}
-        {/* <div id="sign-in" className="flex w-full">
-          <button className="flex w-full gap-2 items-center px-2 justify-center bg-black rounded-lg py-2 text-textPrumary font-semibold hover:bg-primary2 hover:text-textPrimary transition-colors">
-            <GoogleIcon size={20} />
-            <h1>Sign in with Google</h1>
-          </button>
-        </div> */}
-
-        {/*-------------------------------DONT HAVE ACCOUNT BUTTON------------------------------- */}
-        <div className="flex items-center justify-center gap-1 font-normal">
-          <Link href={"/auth/signup"}>
-            <span className="hover:underline hover:text-blue-200">
-              Don&apos;t have an account?
-            </span>
-          </Link>
-        </div>
-
-        {/*-------------------------------CONTINUE AS GUEST BUTTON------------------------------- */}
-        <div className="flex items-center justify-center gap-1 font-normal">
-          <Link href={"/"}>
-            <span className="hover:underline hover:text-blue-200">
-              Continue as Guest
-            </span>
-          </Link>
-        </div>
+          <GoogleIcon size={20} />
+          <h1>Sign in with Google</h1>
+        </button>
       </div>
-    </form>
+
+      {/*-------------------------------DONT HAVE ACCOUNT BUTTON------------------------------- */}
+      <div className="flex items-center justify-center gap-1 font-normal">
+        <Link href={"/auth/signup"}>
+          <span className="hover:underline hover:text-blue-200">
+            Don&apos;t have an account?
+          </span>
+        </Link>
+      </div>
+
+      {/*-------------------------------CONTINUE AS GUEST BUTTON------------------------------- */}
+      <div className="flex items-center justify-center gap-1 font-normal">
+        <Link href={"/"}>
+          <span className="hover:underline hover:text-blue-200">
+            Continue as Guest
+          </span>
+        </Link>
+      </div>
+    </div>
   );
 };
 
