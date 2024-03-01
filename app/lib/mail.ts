@@ -2,15 +2,15 @@ import nodemailer from "nodemailer";
 import Handlebars from "handlebars";
 import { activationTemplate } from "./emailTemplates/activation";
 import { forgotPasswordTemplate } from "./emailTemplates/forgotPassword";
-
+import { contactFormMessageTemplate } from "./emailTemplates/contactMessage";
 
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * |                                                SEND EMAIL TO USER                                                |
  * --------------------------------------------------------------------------------------------------------------------
- * Function to send an email to the user, with a subject and a HTML body. 
+ * Function to send an email to the user, with a subject and a HTML body.
  *
- * @return  
+ * @return
  */
 export async function sendMail({
   to,
@@ -26,15 +26,15 @@ export async function sendMail({
   // const { SMPT_USER, SMPT_USER_CODE } = process.env;
 
   // Create the transport to send the email
-    const transport = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: SMPT_EMAIL,
-        pass: SMPT_EMAIL_CODE,
-      },
-    });
+  const transport = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: SMPT_EMAIL,
+      pass: SMPT_EMAIL_CODE,
+    },
+  });
 
-// For testing purpose, use the below for testing email sending functions. 
+  // For testing purpose, use the below for testing email sending functions.
   // var transport = nodemailer.createTransport({
   //   host: "sandbox.smtp.mailtrap.io",
   //   port: 2525,
@@ -61,12 +61,12 @@ export async function sendMail({
  * --------------------------------------------------------------------------------------------------------------------
  * |                                       COMPILE ACTIVATION EMAIL TO USER                                           |
  * --------------------------------------------------------------------------------------------------------------------
- * Simple function to compiling the template using handleBar, passing the name of user and link for 
- * activating or resetting password. 
+ * Simple function to compiling the template using handleBar, passing the name of user and link for
+ * activating or resetting password.
  *
- * @param {string} name  
- * @param {string} url  
- * @return  
+ * @param {string} name
+ * @param {string} url
+ * @return
  */
 export function compileActivationTemplate(name: string, url: string) {
   const template = Handlebars.compile(activationTemplate);
@@ -78,23 +78,43 @@ export function compileActivationTemplate(name: string, url: string) {
   return htmlBody;
 }
 
-
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * |                                     COMPILE FORGOT PASSWORD EMAIL TO USER                                        |
  * --------------------------------------------------------------------------------------------------------------------
- * Simple function to compiling the template using handleBar, passing the name of user and link for 
- * activating or resetting password. 
- * 
- * @param {string} name  
- * @param {string} url  
- * @return  
+ * Simple function to compiling the template using handleBar, passing the name of user and link for
+ * activating or resetting password.
+ *
+ * @param {string} name
+ * @param {string} url
+ * @return
  */
 export function compileForgotPasswordTemplate(name: string, url: string) {
   const template = Handlebars.compile(forgotPasswordTemplate);
   const htmlBody = template({
     name,
     url,
+  });
+
+  return htmlBody;
+}
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * |                                     COMPILE CONTACT FORM MESSAGE                                                 |
+ * --------------------------------------------------------------------------------------------------------------------
+ * Simple function to compiling the template using handleBar, passing the name of user and link for
+ * activating or resetting password.
+ *
+ * @param {string} name
+ * @param {string} url
+ * @return
+ */
+export function compileContactMessageTemplate(name: string, message: string) {
+  const template = Handlebars.compile(contactFormMessageTemplate);
+  const htmlBody = template({
+    name,
+    message,
   });
 
   return htmlBody;

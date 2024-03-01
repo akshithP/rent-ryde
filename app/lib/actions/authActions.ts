@@ -5,6 +5,7 @@ import * as bcrypt from "bcrypt";
 import {
   compileActivationTemplate,
   compileForgotPasswordTemplate,
+  compileContactMessageTemplate,
   sendMail,
 } from "../mail";
 import { signJwt, verifyJwt } from "../jwt";
@@ -204,3 +205,29 @@ export const resetUserPassword: ResetPasswordFunction = async (
     throw new Error("Something went wrong");
   }
 };
+
+/**
+ * --------------------------------------------------------------------------------------------------------------------
+ * |                                        SEND CONTACT FORM MESSAGE                                                 |
+ * --------------------------------------------------------------------------------------------------------------------
+ *
+ * After user clicks reset password link, they are redirected to resetPassword page where they enter new password.
+ * The password is hashed before updating the password in the database.
+ * @param {string} email
+ * @return
+ */
+export async function submitContactMessage(userData: any) {
+  // Compile the contact form message form template
+  const body = compileContactMessageTemplate(
+    userData.firstName,
+    userData.message
+  );
+
+  // Send the email to user
+  const result = await sendMail({
+    to: userData.email,
+    subject: "Message Received - Rent Ryde",
+    body: body,
+  });
+  return result;
+}
