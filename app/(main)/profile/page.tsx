@@ -1,7 +1,7 @@
 import React from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
-import { redirect } from "next/navigation";
+import UserProfile from "@/components/UserProfile";
 
 const Profile = async () => {
   // Need to get  authUser from the session.
@@ -16,10 +16,23 @@ const Profile = async () => {
   // if (!session || !session.user) redirect("/auth/signin");
 
   return (
-    <div className="p-3 grid grid-cols-1 gap-3 text-textPrimary text-xl font-medium">
-      <div>First Name: {user?.firstName}</div>
-      <div>Last Name: {user?.lastName}</div>
-      <div>email ID: {user?.email}</div>
+    <div className="flex flex-col mt-10 justify-center items-center">
+      {/*-----------------TITLE----------------*/}
+      <div className="flex justify-center p-4">
+        <h1
+          id="title"
+          className="font-extrabold md:text-3xl text-2xl text-primary"
+        >
+          My Profile
+        </h1>
+      </div>
+      <div className="flex p-3 md:w-96 w-72 justify-center items-center rounded-lg bg-secondary2 shadow-lg">
+        <UserProfile
+          firstName={user?.firstName}
+          lastName={user?.lastName}
+          email={user?.email}
+        />
+      </div>
     </div>
   );
 };
