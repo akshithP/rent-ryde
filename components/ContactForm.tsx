@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@chakra-ui/react";
+import { submitContactMessage } from "@/app/lib/actions/authActions";
 
 // Form schema of contact
 const FormSchema = z.object({
@@ -52,7 +53,7 @@ const ContactForm = () => {
     data
   ) => {
     try {
-      //const result = await sendContactMessage(data);
+      const result = await submitContactMessage(data);
       toast({
         title: "Message Sent!",
         description: "Please check your email for a copy of message",
@@ -156,7 +157,7 @@ const ContactForm = () => {
           type="submit"
           className="flex gap-2 mt-5 justify-center items-center bg-primary text-secondary2 font-bold px-4 py-3 rounded hover:bg-black hover:text-textPrimary transition-colors hover:scale-105 transition-all'"
         >
-          <p>{isSubmitting ? "Sending..." : "Send Message"}</p>
+          {isSubmitting ? "Sending..." : "Send Message"}
           <Send className="text-xl font-semibold" />
         </button>
       </div>
