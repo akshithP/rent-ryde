@@ -42,23 +42,23 @@ const Contact = () => {
 
           {/*---------PHONE----------*/}
           <a
-            href={`tel:+61-0234-5678`}
+            href={`tel:+61-469-035-759`}
             className="flex gap-5 justify-start items-center text-secondary2 hover:text-textPrimary transition-colors"
           >
             <Phone size={34} />
             <p className="text-lg font-medium hover:underline ">
-              +61-0234-5678
+              +61-469-035-759
             </p>
           </a>
 
           {/*---------MAIL----------*/}
           <a
-            href={`mailto:rentryde@help.com.au`}
+            href={`mailto:rentrydehelp@gmail.com`}
             className="flex gap-5 justify-start items-center text-secondary2 hover:text-textPrimary transition-colors"
           >
             <Mail size={34} />
             <p className="text-lg font-medium hover:underline">
-              rentryde@help.com.au
+              rentrydehelp@gmail.com
             </p>
           </a>
 
