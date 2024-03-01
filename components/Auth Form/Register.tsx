@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { IoEye as EyeOn } from "react-icons/io5";
+import { IoEyeOff as EyeOff } from "react-icons/io5";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import CarLogo from "../../public/icons/car-logo.svg";
@@ -98,6 +100,9 @@ const Register = ({ switchToLogin }: any) => {
     // After registering successfully, redirect user to sign in page
     router.push("/auth/signin");
   };
+
+  // Visibility of password field
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="grid grid-cols-1 p-4 gap-4 text-textPrimary">
       <form
@@ -172,12 +177,29 @@ const Register = ({ switchToLogin }: any) => {
         {/*----------------------------------PASSWORD--------------------------------- */}
         <div id="password" className="flex flex-col w-full">
           <h1>Password</h1>
-          <input
-            {...register("password")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            type="password"
-            placeholder="********"
-          ></input>
+          <div className="flex items-center rounded-lg border-2 border-borderCol focus:outline-none">
+            <input
+              {...register("password")}
+              className="w-64 bg-transparent px-2 py-1 focus:outline-none"
+              type={showPassword ? "text" : "password"}
+              placeholder="********"
+            ></input>
+            {showPassword ? (
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="p-2 hover:cursor-pointer"
+              >
+                <EyeOff className="hover:text-primary " size={20} />
+              </div>
+            ) : (
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="p-2 hover:cursor-pointer"
+              >
+                <EyeOn className="hover:text-primary " size={20} />
+              </div>
+            )}
+          </div>
           {errors.password && (
             <p className="text-red-500">{errors.password.message}</p>
           )}
@@ -187,12 +209,29 @@ const Register = ({ switchToLogin }: any) => {
         {/*----------------------------------CONFIRM PASSWORD--------------------------------- */}
         <div id="password" className="flex flex-col w-full">
           <h1>Confirm Password</h1>
-          <input
-            {...register("confirmPassword")}
-            className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-            type="password"
-            placeholder="********"
-          ></input>
+          <div className="flex items-center rounded-lg border-2 border-borderCol focus:outline-none">
+            <input
+              {...register("confirmPassword")}
+              className="w-64 bg-transparent px-2 py-1 focus:outline-none"
+              type={showPassword ? "text" : "password"}
+              placeholder="********"
+            ></input>
+            {showPassword ? (
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="p-2 hover:cursor-pointer"
+              >
+                <EyeOff className="hover:text-primary " size={20} />
+              </div>
+            ) : (
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="p-2 hover:cursor-pointer"
+              >
+                <EyeOn className="hover:text-primary " size={20} />
+              </div>
+            )}
+          </div>
           {errors.confirmPassword && (
             <p className="text-red-500">{errors.confirmPassword.message}</p>
           )}
