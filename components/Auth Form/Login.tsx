@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import CarLogo from "../../public/icons/car-logo.svg";
 import { FcGoogle as GoogleIcon } from "react-icons/fc";
@@ -10,6 +10,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@chakra-ui/react";
+import { IoEye as EyeOn } from "react-icons/io5";
+import { IoEyeOff as EyeOff } from "react-icons/io5";
 
 interface Props {
   callbackUrl?: string; //When user signs in successfully, redirect the user to callbackUrl
@@ -65,6 +67,9 @@ const Login = (props: Props) => {
     router.push(props.callbackUrl ? props.callbackUrl : "/");
   };
 
+  // Visibility of password field
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className="grid grid-cols-1 p-4 gap-4 text-textPrimary">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -109,12 +114,29 @@ const Login = (props: Props) => {
           {/*----------------------------------PASSWORD--------------------------------- */}
           <div id="password" className="flex flex-col w-full">
             <h1>Password</h1>
-            <input
-              {...register("password")}
-              className="bg-transparent px-2 py-1 rounded-lg border-2 border-borderCol focus:outline-none"
-              type="password"
-              placeholder="********"
-            ></input>
+            <div className="flex items-center rounded-lg border-2 border-borderCol focus:outline-none">
+              <input
+                {...register("password")}
+                className="bg-transparent px-2 py-1 focus:outline-none w-full"
+                type={showPassword ? "text" : "password"}
+                placeholder="********"
+              ></input>
+              {showPassword ? (
+                <div
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="p-2 hover:cursor-pointer"
+                >
+                  <EyeOff className="hover:text-primary " size={20} />
+                </div>
+              ) : (
+                <div
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="p-2 hover:cursor-pointer"
+                >
+                  <EyeOn className="hover:text-primary " size={20} />
+                </div>
+              )}
+            </div>
             {errors.password && (
               <p className="text-red-500">{errors.password.message}</p>
             )}
