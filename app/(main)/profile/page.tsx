@@ -26,7 +26,7 @@ const Profile = async () => {
           My Profile
         </h1>
       </div>
-      <div className="flex px-3 py-3 w-96 justify-center items-center rounded-lg bg-secondary2 shadow-lg">
+      <div className="flex p-3 md:w-96 w-72 justify-center items-center rounded-lg bg-secondary2 shadow-lg">
         <UserProfile
           firstName={user?.firstName}
           lastName={user?.lastName}
