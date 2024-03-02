@@ -95,6 +95,7 @@ const CarModal = (carProps: Props) => {
                 setDate={carProps.setDate}
                 time={carProps.time}
                 setTime={carProps.setTime}
+                carModal={true}
               />
               {/* <LocationMenu
                 selectedLocation={carProps.selectedLocation}
