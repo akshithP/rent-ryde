@@ -41,7 +41,7 @@ const CarModal = (carProps: Props) => {
   return (
     <div
       onClick={carProps.onClose}
-      className="fixed inset-0 bg-black bg-opacity-50 z-30 flex justify-center items-center"
+      className="fixed inset-0 bg-black bg-opacity-70 z-30 flex justify-center items-center"
     >
       <div className="bg-secondary lg:max-w-7xl lg:mx-auto p-4 rounded-md w-4/5">
         <form
