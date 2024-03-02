@@ -7,6 +7,10 @@ import { BsFillFuelPumpFill as FuelType } from "react-icons/bs";
 import { GiCarWheel as Wheel } from "react-icons/gi";
 import { PiGasCanFill as FuelEconomy } from "react-icons/pi";
 import { IoPeople as Seats } from "react-icons/io5";
+import LocationMenu from "./Schedule Bar/LocationMenu";
+import DatePicker from "./Schedule Bar/DatePicker";
+import TimePicker from "./Schedule Bar/TimePicker";
+import MobileScheduleBar from "./MobileScheduleBar";
 
 interface Props {
   brand: string;
@@ -20,6 +24,12 @@ interface Props {
   seats: number;
   driveRange: number;
   isOpen: boolean;
+  selectedLocation: any;
+  setSelectedLocation: any;
+  date: any;
+  setDate: any;
+  time: any;
+  setTime: any;
   onClose: () => void;
 }
 
@@ -31,7 +41,7 @@ const CarModal = (carProps: Props) => {
   return (
     <div
       onClick={carProps.onClose}
-      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center"
+      className="fixed inset-0 bg-black bg-opacity-50 z-30 flex justify-center items-center"
     >
       <div className="bg-secondary lg:max-w-7xl lg:mx-auto p-4 rounded-md w-4/5">
         <form
@@ -41,7 +51,7 @@ const CarModal = (carProps: Props) => {
           {/*------------------------------------CAR BRAND & MODEL---------------------------------------- */}
           <div
             id="carTitle"
-            className="flex text-primary text-xl font-semibold col-span-4"
+            className="flex text-primary items-center sm:text-3xl text-xl font-semibold col-span-4 text-center"
           >
             <h1>
               {carProps.brand} {carProps.model}
@@ -59,7 +69,7 @@ const CarModal = (carProps: Props) => {
           </div>
 
           {/*------------------------------------IMAGE---------------------------------------- */}
-          <div id="carImage" className="col-span-3 ">
+          <div id="carImage" className="md:col-span-3 col-span-5 ">
             <Image
               width={700}
               height={604}
@@ -72,18 +82,32 @@ const CarModal = (carProps: Props) => {
           {/*------------------------------------SCHEDULER---------------------------------------- */}
           <div
             id="carScheduler"
-            className="bg-secondary2 rounded-lg col-span-2"
+            className="bg-secondary2 rounded-lg md:col-span-2 col-span-5"
           >
-            <div className="flex flex-col p-2">
+            <div className="flex flex-col p-4 gap-6 z-50">
               <h1 className="text-lg font-semibold text-textPrimary">
                 Confirm Details
               </h1>
+              <MobileScheduleBar
+                selectedLocation={carProps.selectedLocation}
+                setSelectedLocation={carProps.setSelectedLocation}
+                date={carProps.date}
+                setDate={carProps.setDate}
+                time={carProps.time}
+                setTime={carProps.setTime}
+              />
+              {/* <LocationMenu
+                selectedLocation={carProps.selectedLocation}
+                setSelectedLocation={carProps.setSelectedLocation}
+              />
+              <DatePicker date={carProps.date} setDate={carProps.setDate} />
+              <TimePicker time={carProps.time} setTime={carProps.setTime} /> */}
             </div>
           </div>
 
           {/*------------------------------------PROPERTIES---------------------------------------- */}
           <div id="carProperties" className="col-span-5">
-            <div className="grid md:grid-cols-6 grid-cols-3">
+            <div className="grid lg:grid-cols-6 sm:grid-cols-3 grid-cols-2 bg-secondary2 p-3 rounded-md">
               {/**************************       BODY TYPE       ********************************* */}
               <div id="bodyType" className="grid grid-cols-2 gap-x-2">
                 <div className="flex items-center justify-end">
@@ -119,7 +143,8 @@ const CarModal = (carProps: Props) => {
                 </div>
                 <div className="flex items-center">
                   <h1 className="text-textPrimary text-base">
-                    {carProps.fuelType}
+                    {carProps.fuelType.charAt(0).toUpperCase() +
+                      carProps.fuelType.slice(1)}
                   </h1>
                 </div>
                 <h1 className="text-borderCol text-sm  col-start-2">
@@ -169,7 +194,14 @@ const CarModal = (carProps: Props) => {
           </div>
 
           {/*------------------------------------SAVE BTN---------------------------------------- */}
-          <div id="saveBtn"></div>
+          <div
+            id="saveBtn"
+            className="col-span-5 items-center justify-center w-full"
+          >
+            <button className="w-full bg-primary text-textPrimary px-5 py-2 rounded-md text-lg hover:bg-black transition-colors">
+              Save
+            </button>
+          </div>
         </form>
       </div>
     </div>

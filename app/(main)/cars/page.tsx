@@ -229,6 +229,12 @@ const Cars = () => {
               economy={selectedCar?.fuel_economy}
               driveRange={selectedCar?.drive_range}
               seats={selectedCar?.seats}
+              selectedLocation={location}
+              setSelectedLocation={setLocation}
+              date={date}
+              setDate={setDate}
+              time={time}
+              setTime={setTime}
             ></CarModal>
           )}
         </div>

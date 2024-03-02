@@ -40,7 +40,7 @@ const MobileScheduleBar = ({
         <div
           id="allMenusContainer"
           onClick={openModal}
-          className="grid grid-cols-2 gap-2 cursor-pointer"
+          className="grid grid-cols-2 gap-2 cursor-pointer flex-1"
         >
           {/*----------------------------------------------LOCATION--------------------------------------------- */}
           <div
@@ -80,7 +80,7 @@ const MobileScheduleBar = ({
 
         {/*---------------------TRANSITION------------------ */}
         <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Dialog as="div" className="relative z-50" onClose={closeModal}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"

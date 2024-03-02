@@ -21,7 +21,7 @@ const DatePicker = ({ date, setDate }: any) => {
             <Calendar className="text-primary" size={20} />
             <h1>Date</h1>
           </div>
-          <div className="flex  gap-2 items-center">
+          <div className="flex flex-wrap gap-2 items-center">
             <div>{format(date[0].startDate, "dd/MM/yyyy")}</div>
             <RightArrow size={25} className="text-primary" />
             <div>
