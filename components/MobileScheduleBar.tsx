@@ -11,14 +11,17 @@ import TimePicker from "@/components/Schedule Bar/TimePicker";
 import { FaLongArrowAltRight as RightArrow } from "react-icons/fa";
 import { format, addDays } from "date-fns";
 
-const MobileScheduleBar = ({
-  selectedLocation,
-  setSelectedLocation,
-  date,
-  setDate,
-  time,
-  setTime,
-}: any) => {
+interface Props {
+  selectedLocation: any;
+  setSelectedLocation: any;
+  date: any;
+  setDate: any;
+  time: any;
+  setTime: any;
+  carModal?: boolean;
+}
+
+const MobileScheduleBar = (props: Props) => {
   // use state for the modal
   const [isOpen, setIsOpen] = useState(false);
   // const [selectedLocation, setSelectedLocation] = useState("Set Location...");
@@ -40,7 +43,7 @@ const MobileScheduleBar = ({
         <div
           id="allMenusContainer"
           onClick={openModal}
-          className="grid grid-cols-2 gap-2 cursor-pointer"
+          className="grid grid-cols-2 gap-2 cursor-pointer flex-1"
         >
           {/*----------------------------------------------LOCATION--------------------------------------------- */}
           <div
@@ -49,38 +52,46 @@ const MobileScheduleBar = ({
           >
             <LocationPin size={20} className="text-primary" />
             <h1 className="text-textPrimary text-base font-medium">
-              {selectedLocation}
+              {props.selectedLocation}
             </h1>
           </div>
 
           {/*----------------------------------------------DATES--------------------------------------------- */}
-          <div className="flex justify-start items-center gap-1">
+          <div
+            className={`flex justify-start items-center gap-1 ${
+              props.carModal ? "col-span-2" : ""
+            }`}
+          >
             <Calendar size={18} className="text-primary" />
             <div className="flex gap-2 items-center text-textPrimary">
-              <div>{format(date[0].startDate, "dd/MM")}</div>
+              <div>{format(props.date[0].startDate, "dd/MM")}</div>
               <div className="text-primary font-semibold">to</div>
               <div>
-                {date[0].endDate ? (
-                  <div>{format(date[0].endDate, "dd/MM")}</div>
+                {props.date[0].endDate ? (
+                  <div>{format(props.date[0].endDate, "dd/MM")}</div>
                 ) : (
-                  <div>{format(date[0].startDate, "dd/MM")}</div>
+                  <div>{format(props.date[0].startDate, "dd/MM")}</div>
                 )}
               </div>
             </div>
           </div>
 
           {/*----------------------------------------------TIME--------------------------------------------- */}
-          <div className="flex justify-start items-center gap-1">
+          <div
+            className={`flex justify-start items-center gap-1 ${
+              props.carModal ? "col-span-2" : ""
+            }`}
+          >
             <Clock size={18} className="text-primary" />
             <div className="flex gap-2 items-center text-textPrimary">
-              <div>{time}...</div>
+              <div>{props.time}...</div>
             </div>
           </div>
         </div>
 
         {/*---------------------TRANSITION------------------ */}
         <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Dialog as="div" className="relative z-50" onClose={closeModal}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -107,11 +118,11 @@ const MobileScheduleBar = ({
                   <Dialog.Panel className="w-full h-[600px]	 max-w-md transform overflow-hidden rounded-2xl bg-secondary2 p-6 text-left align-middle shadow-xl transition-all">
                     <div className=" flex flex-col gap-2">
                       <LocationMenu
-                        selectedLocation={selectedLocation}
-                        setSelectedLocation={setSelectedLocation}
+                        selectedLocation={props.selectedLocation}
+                        setSelectedLocation={props.setSelectedLocation}
                       />
-                      <DatePicker date={date} setDate={setDate} />
-                      <TimePicker time={time} setTime={setTime} />
+                      <DatePicker date={props.date} setDate={props.setDate} />
+                      <TimePicker time={props.time} setTime={props.setTime} />
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>

@@ -82,8 +82,8 @@ const CarCard = ({
         </div>
 
         <div className="col-span-3">
-          <button className="text-lg bg-primary text-textPrimary px-5 py-3 rounded-md w-full hover:bg-secondary2 hover:text-primary transition-colors">
-            Book Now
+          <button className="text-lg bg-primary text-textPrimary px-5 py-3 rounded-md w-full hover:bg-primary2  transition-colors">
+            View Details
           </button>
         </div>
       </div>

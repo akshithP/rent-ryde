@@ -11,6 +11,7 @@ import FuelTypeFilter from "@/components/Filter Menus/FuelTypeFilter";
 import MobileScheduleBar from "@/components/MobileScheduleBar";
 import { useMediaQuery } from "react-responsive";
 import CarsPagination from "@/components/CarsPagination";
+import CarModal from "@/components/CarModal";
 
 interface ActiveFilters {
   brands: string[];
@@ -18,6 +19,20 @@ interface ActiveFilters {
   fuel_types: string[];
 }
 
+// Car properties content
+interface CarCardInfo {
+  _id: string;
+  brand: string;
+  model: string;
+  car_type: string;
+  fuel_type: string;
+  drive: string;
+  year: string;
+  fuel_economy: number;
+  drive_range: number;
+  seats: number;
+  image_url: string;
+}
 const Cars = () => {
   // Storing all cars data in useState
   const [data, setData] = useState([]);
@@ -99,6 +114,20 @@ const Cars = () => {
     applyFilters();
   }, [data, activeFilters]);
 
+  // Car Modal Pop-up
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  // Selected car from car cards list
+  const [selectedCar, setSelectedCar] = useState<CarCardInfo | null>(null);
+
+  // When car card is selected
+  const handleCardClick = (car: CarCardInfo) => {
+    setSelectedCar(car);
+    setIsModalOpen(true);
+  };
+
   return (
     <div>
       {/*---------------------------------------------MAIN CONTAINER----------------------------------------- */}
@@ -164,18 +193,50 @@ const Cars = () => {
           className="col-span-3 grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
           {currentCarCards &&
-            currentCarCards?.map((car: any) => (
-              <CarCard
-                key={car?._id}
-                imageURL={car?.image_url}
-                brand={car?.brand}
-                model={car?.model}
-                carType={car?.car_type}
-                driveType={car?.drive}
-                fuelEconomy={car?.fuel_economy}
-                seats={car?.seats}
-              ></CarCard>
+            currentCarCards?.map((car: CarCardInfo) => (
+              <div
+                key={car._id}
+                onClick={() => handleCardClick(car)}
+                className="transition duration-150 ease-in-out hover:scale-105 hover:cursor-pointer"
+              >
+                <CarCard
+                  key={car?._id}
+                  imageURL={car?.image_url}
+                  brand={car?.brand}
+                  model={car?.model}
+                  carType={car?.car_type}
+                  driveType={car?.drive}
+                  fuelEconomy={car?.fuel_economy}
+                  seats={car?.seats}
+                ></CarCard>
+              </div>
             ))}
+        </div>
+
+        {/*--------------------------------CAR MODAL-------------------------------- */}
+        <div>
+          {selectedCar && (
+            <CarModal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              brand={selectedCar?.brand}
+              model={selectedCar?.model}
+              imageUrl={selectedCar?.image_url}
+              carType={selectedCar?.car_type}
+              year={selectedCar?.year}
+              fuelType={selectedCar?.fuel_type}
+              driveType={selectedCar?.drive}
+              economy={selectedCar?.fuel_economy}
+              driveRange={selectedCar?.drive_range}
+              seats={selectedCar?.seats}
+              selectedLocation={location}
+              setSelectedLocation={setLocation}
+              date={date}
+              setDate={setDate}
+              time={time}
+              setTime={setTime}
+            ></CarModal>
+          )}
         </div>
 
         {/*--------------------------------PAGINATION-------------------------------- */}
