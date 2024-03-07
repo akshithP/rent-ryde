@@ -200,13 +200,8 @@ const Cars = () => {
           className="col-span-3 grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
           {isLoading ? (
-            <div className="text-2xl text-textPrimary">
-              <svg
-                className="animate-spin h-5 w-5 mr-3 ..."
-                viewBox="0 0 24 24"
-              >
-                Loading
-              </svg>
+            <div className="text-2xl text-textPrimary text-center">
+              Loading...
             </div>
           ) : (
             currentCarCards?.map((car: CarCardInfo) => (
