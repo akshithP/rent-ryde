@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import { ImSpinner9 as Spinner } from "react-icons/im";
 import React, { useEffect, useState } from "react";
 import CarCard from "@/components/CarCard";
 import LocationMenu from "@/components/Schedule Bar/LocationMenu";
@@ -200,8 +200,8 @@ const Cars = () => {
           className="col-span-3 grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
           {isLoading ? (
-            <div className="text-2xl text-textPrimary text-center">
-              Loading...
+            <div className="animate-spin col-span-3 text-2xl text-primary w-full text-center flex justify-center items-center">
+              <Spinner size={40}></Spinner>
             </div>
           ) : (
             currentCarCards?.map((car: CarCardInfo) => (
