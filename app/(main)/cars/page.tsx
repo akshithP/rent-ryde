@@ -12,6 +12,7 @@ import MobileScheduleBar from "@/components/MobileScheduleBar";
 import { useMediaQuery } from "react-responsive";
 import CarsPagination from "@/components/CarsPagination";
 import CarModal from "@/components/CarModal";
+import "../../globals.css";
 
 interface ActiveFilters {
   brands: string[];
@@ -37,6 +38,7 @@ const Cars = () => {
   // Storing all cars data in useState
   const [data, setData] = useState([]);
   const [cars, setCars] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Schedule menu's useState values
   const [location, setLocation] = useState("Set Location...");
@@ -54,11 +56,16 @@ const Cars = () => {
 
   // Fetch all car data initially when the page is loaded
   useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      console.log("World!");
+    }, 5000);
     fetch("/api/cars")
       .then((response) => response.json())
       .then((json) => {
         setData(json);
         setCars(json);
+        setIsLoading(false);
       });
   }, []);
 
@@ -192,7 +199,16 @@ const Cars = () => {
           id="carCards"
           className="col-span-3 grid lg:grid-cols-3 sm:grid-cols-2 p-5 gap-5"
         >
-          {currentCarCards &&
+          {isLoading ? (
+            <div className="text-2xl text-textPrimary">
+              <svg
+                className="animate-spin h-5 w-5 mr-3 ..."
+                viewBox="0 0 24 24"
+              >
+                Loading
+              </svg>
+            </div>
+          ) : (
             currentCarCards?.map((car: CarCardInfo) => (
               <div
                 key={car._id}
@@ -210,7 +226,8 @@ const Cars = () => {
                   seats={car?.seats}
                 ></CarCard>
               </div>
-            ))}
+            ))
+          )}
         </div>
 
         {/*--------------------------------CAR MODAL-------------------------------- */}
