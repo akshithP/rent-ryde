@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Sign In",
-  description: "Rent Ryde is a car rental app",
+  description: "Ren Ryde is a car rental app",
 };
 
 export default function RootLayout({
