@@ -56,7 +56,7 @@ const CarCard = ({
           </div>
         </div>
 
-        {/*------------------------RENTAL PRICE--------------------*/}
+        {/*----------------------RENTAL PRICE------------------*/}
         <div id="carRentalPrice">
           <h1 className=" text-textPrimary text-lg font-semibold">$299/day</h1>
         </div>
