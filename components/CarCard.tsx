@@ -31,7 +31,7 @@ const CarCard = ({
       id="cardContainer"
       className={`bg-black ${poppins.className} max-w-96 gap-5 rounded-lg`}
     >
-      {/*-----------------------------------CAR IMAGE---------------------------------*/}
+      {/*----------------------------------CAR IMAGE--------------------------------*/}
       <div id="imageContainer" className="">
         <Image
           width={384}
@@ -42,9 +42,9 @@ const CarCard = ({
         />
       </div>
 
-      {/*-----------------------------------SPECIFICATIONS---------------------------------*/}
+      {/*----------------------------------SPECIFICATIONS--------------------------------*/}
       <div id="specsContainer" className="grid grid-cols-3 gap-5 col-auto p-5 ">
-        {/*------------------------CAR TITLE--------------------*/}
+        {/*----------------------CAR TITLE------------------*/}
         <div id="carTitleSpan" className="col-span-2">
           <div id="carTitle" className="flex flex-col">
             <h1 className=" text-primary text-lg font-semibold">
@@ -56,7 +56,7 @@ const CarCard = ({
           </div>
         </div>
 
-        {/*------------------------RENTAL PRICE--------------------*/}
+        {/*----------------------RENTAL PRICE------------------*/}
         <div id="carRentalPrice">
           <h1 className=" text-textPrimary text-lg font-semibold">$299/day</h1>
         </div>
