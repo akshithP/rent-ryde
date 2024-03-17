@@ -44,7 +44,7 @@ const CarCard = ({
 
       {/*----------------------------------SPECIFICATIONS--------------------------------*/}
       <div id="specsContainer" className="grid grid-cols-3 gap-5 col-auto p-5 ">
-        {/*------------------------CAR TITLE--------------------*/}
+        {/*----------------------CAR TITLE------------------*/}
         <div id="carTitleSpan" className="col-span-2">
           <div id="carTitle" className="flex flex-col">
             <h1 className=" text-primary text-lg font-semibold">
