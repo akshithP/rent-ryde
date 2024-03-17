@@ -42,7 +42,7 @@ const CarCard = ({
         />
       </div>
 
-      {/*-----------------------------------SPECIFICATIONS---------------------------------*/}
+      {/*----------------------------------SPECIFICATIONS--------------------------------*/}
       <div id="specsContainer" className="grid grid-cols-3 gap-5 col-auto p-5 ">
         {/*------------------------CAR TITLE--------------------*/}
         <div id="carTitleSpan" className="col-span-2">
