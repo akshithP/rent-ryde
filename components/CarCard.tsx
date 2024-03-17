@@ -31,7 +31,7 @@ const CarCard = ({
       id="cardContainer"
       className={`bg-black ${poppins.className} max-w-96 gap-5 rounded-lg`}
     >
-      {/*-----------------------------------CAR IMAGE---------------------------------*/}
+      {/*----------------------------------CAR IMAGE--------------------------------*/}
       <div id="imageContainer" className="">
         <Image
           width={384}
